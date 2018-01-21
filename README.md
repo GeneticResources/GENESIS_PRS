@@ -14,8 +14,8 @@ devtools::install_github("GENESIS","yandorazhang")
 ```
 
 ## Citation
-Please cite the following paper:
-  Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits and implications for the future." bioRxiv (2017): 175406.
+
+Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits and implications for the future." bioRxiv (2017): 175406.
 
 
 ## Contact the Author
