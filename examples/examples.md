@@ -1,4 +1,4 @@
-Example
+Examples
 ===
 
 ## Load summary GWAS data - Height (allen2010)
