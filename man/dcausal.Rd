@@ -1,4 +1,5 @@
 \name{dcausal}
+\alias{dcausal}
 \title{
 Mixture Normal Probability Density for the Causal SNPs.
 }
