@@ -15,7 +15,7 @@ dcausal(x,est)
 This function allows to get the (mixture) normal probability density function for the causal SNPs. It is a single normal distribution for 2-component model; two-component mixture normal distribution for 3-component model. 
 }
 \value{
-The density. 
+The density.  
 }
 \references{
 Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits and implications for the future." bioRxiv (2017): 175406.

@@ -10,7 +10,7 @@ GENESIS software can be installed via Github. To install the latest version of G
 ```{r }
 if (!require("devtools"))
   install.packages("devtools")
-devtools::install_github("GENESIS","yandorazhang")
+devtools::install_github("yandorazhang/GENESIS")
 ```
 
 ## Citation
