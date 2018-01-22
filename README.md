@@ -2,7 +2,7 @@ GENESIS: GENetic Effect-Size distribution Inference from Summary-level data
 ====
   
 ## Overview
-To goal of GENESIS is to analyze summary-level GWAS statistics and external linkage disequilibrium information to estimate common variants effect-size distributions, characterized by the proportion of underlying susceptibility SNPs and a flexible normal-mixture model for their effects. This package allows model flexibility by considering a 2- or 3-component model, which means modeling the effect-size distributions for susceptibility SNPs by a single normal, or a mixture of two normal distributions. This package also allows users to make predictions of future GWAS with a bigger sample size.  
+To goal of GENESIS is to analyze summary-level GWAS statistics and external linkage disequilibrium information to estimate common variants effect-size distributions, characterized by the proportion of underlying susceptibility SNPs and a flexible normal-mixture model for their effects. This package allows flexibility by considering a 2- or 3-component model, which respectively incorporate a single normal, or a mixture of two normal distributions, for specifying the effects of non-null SNPs. This package also allows users to make predictions regarding yield of future GWAS with larger sample sizes.  
 
 ## GENESIS Installation
 
