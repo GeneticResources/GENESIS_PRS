@@ -29,10 +29,7 @@
 #' @examples
 #' genesis(summarydata,modelcomponents=2, cores=24, LDcutoff=1, c0=10, BICgamma=0.5,print=TRUE,printfreq=10, starting=NA,startingpic=0.01, tolerance=NA,qqplot=TRUE, qqplotCI=0.8, qqplotname=paste0(""),summaryGWASLDdatasave=FALSE,qqplotdatasave=T,siblingrisk=FALSE,filter=F)
                      
-genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10, BICgamma=0.5, 
-                           print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA, 
-                           qqplot=TRUE, qqplotCI=0.8, qqplotname="", nsim=100, summaryGWASLDdatasave=FALSE, qqplotdatasave=FALSE, 
-                           siblingrisk=FALSE, filter=FALSE){
+genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10, BICgamma=0.5, print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA, qqplot=TRUE, qqplotCI=0.8, qqplotname="", nsim=100, summaryGWASLDdatasave=FALSE, qqplotdatasave=FALSE, siblingrisk=FALSE, filter=FALSE){
   
   #----------------------------------------------------#----------------------------------------------------
   # I. Input values check 
