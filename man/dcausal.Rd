@@ -1,6 +1,6 @@
 \name{dcausal}
 \title{
- (Mixture) Normal Probability Density for the Causal SNPs.}
+Mixture Normal Probability Density for the Causal SNPs.}
 \description{
 This function allows to get the (mixture) normal probability density function for the causal SNPs.
 }
