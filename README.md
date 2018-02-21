@@ -23,9 +23,10 @@ The input GWAS summary statistics should contain 3 columns:
 
 The input GWAS summary statistics are strongly recommended to do filtering before fitting to the model: 
 
-1. Filter SNPs to Hapmap3 SNPs which are not in the major histocompatibility complex (MHC) region. For Hapmap3 SNP list without MHC region, type ```data(w_hm3.noMHC.snplist)``` in ```R```.
-3. If sample size is different for different SNPs, remove SNPs with an effective sample size less than 0.67 times the 90th percentile of sample size. 
-4. Remove SNPs with extremely large effect sizes (z^2 > 80).
+1. If sample size is different for different SNPs, remove SNPs with an effective sample size less than 0.67 times the 90th percentile of sample size. 
+2. Filter SNPs to Hapmap3 SNPs which are not in the major histocompatibility complex (MHC) region. For Hapmap3 SNP list without MHC region, type ```data(w_hm3.noMHC.snplist)``` in ```R```.
+3. Remove SNPs with extremely large effect sizes (z^2 > 80).
+
 
 
 
