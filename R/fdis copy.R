@@ -12,19 +12,19 @@
 #' @examples 
 #' fdis(est=c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06),v,n=253288);
 
-projectionCI <- function(est,v,n,alpha=0.025,M=1070777,nsim=10000){
+projectionCI <- function(est,v,n,alpha=5e-8,M=1070777,nsim=1000,alpha0=0.025){
   library(MASS)
   logest = log(est)
   logv = diag(1/est)%*%v%*%diag(1/est)
   estmat = exp(mvrnorm(nsim,mu=logest,Sigma=logv))
   
-  pest = projection(est,n,M=M)$Numdicoveries;
-  re = apply(estmat, 1, function(t) {projection(t,n,M=M)}$Numdicoveries)
+  pest = projection(est,n,M=M,alpha=alpha)$Numdicoveries;
+  re = apply(estmat, 1, function(t) {projection(t,n,M=M,alpha=alpha)}$Numdicoveries)
   rere = apply(matrix(re,ncol=1),1,function(t) rbinom(1,size=M,prob=t/M))
   
-  gvest = projection(est,n,M=M)$GVpercentage;
-  regv = apply(estmat, 1, function(t) {projection(t,n,M=M)}$GVpercentage)
+  gvest = projection(est,n,M=M,alpha=alpha)$GVpercentage;
+  regv = apply(estmat, 1, function(t) {projection(t,n,M=M,alpha=alpha)}$GVpercentage)
 
-  return(list(Numdiscoveries = c(pest,quantile(rere,alpha),quantile(rere,1-alpha)),
-              GVpercentage = c(gvest,quantile(regv,alpha),quantile(regv,1-alpha))))
+  return(list(Numdiscoveries = c(pest,quantile(rere,alpha0),quantile(rere,1-alpha0)),
+              GVpercentage = c(gvest,quantile(regv,alpha0),quantile(regv,1-alpha0))))
 }
