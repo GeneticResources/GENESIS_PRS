@@ -15,7 +15,7 @@ data(heightGWAS)
 Note the startingpic value can be specifided at a list of values, and then the one with the largest log-likelihood is selected as the final model. 
 
 ```{r 2-component model}
-fit2 <- genesis(df,modelcomponents=2, cores=2, LDcutoff=1, c0=10,startingpic=0.005,filter=F)
+fit2 <- genesis(df, filter=F, modelcomponents=2, cores=2, LDcutoff=0.1, LDwindow=1, c0=10, startingpic=0.005)
 fit2$estimates
 
 est <- fit2$estimates$`parameter (pic, sigmasq, a) estimates` # the model parameter estimates
@@ -69,7 +69,7 @@ starting[3] <- est[2]*5
 starting[4] <- starting[3]/10
 starting[5] <- est[3]
 
-fit3 <- genesis(df,modelcomponents=3, cores=24, LDcutoff=1, c0=10,starting=starting,filter=F)
+fit3 <- genesis(df, filter=F, modelcomponents=3, cores=24, LDcutoff=0.1, LDwindow=1, c0=10,starting=starting)
 fit3$estimates
 
 est <- fit3$estimates$`parameter (pic, p1, sigmasq1, sigmasq2, a) estimates` # the model parameter estimates
@@ -88,12 +88,7 @@ plot(x_seq, y_seq,type="l",ylim=c(0,250),xlab="Joint effect size", ylab="Probabi
 
 ### Make future projections with specified sample size n
 ```{r future projections}
-projection(est,n=253288)
-```
-
-### Predict number of discoveries in future GWAS and its confidence interval
-```{r future projections}
-fdis(est,v,n=253288)
+projection(est,v,n=253288)
 ```
 
 ### Calculate number of SNPs falling in an interval
