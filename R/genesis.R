@@ -27,20 +27,20 @@
 #' @param qqaxis numeric; the x- and y-axis limits is from 0 to qqaxis for the QQ plot. By default, it is 10. 
 #' @param siblingrisk logical; if TRUE, the sibling risk will also be calculated.
 #' @param herit_liability logical; if TRUE, the heritability in log-odds-ratio scale will be transferred to liability scale.
-#' @param sample_prevelance sample prevelance for the disease trait.
-#' @param population_prevelance population prevelance for the disease trait. 
+#' @param sample_prevalence sample prevalence for the disease trait.
+#' @param population_prevalence population prevalence for the disease trait. 
 #' @keywords 
 #' @export
 #' 
 #' @examples
-#' genesis(summarydata,filter=F,modelcomponents=2, cores=24, LDcutoff=0.1,LDwindow=1,M=1070777,c0=10, BICgamma=0.5,print=TRUE,printfreq=10, starting=NA,startingpic=0.01, tolerance=NA,qqplot=TRUE, qqplotCI=0.8, qqplotname=paste0(""), summaryGWASdataLDsave=FALSE, qqplotdatasave=FALSE, qqaxis=10,siblingrisk=FALSE,herit_liability=FALSE,sample_prevelance=NA,population_prevelance=NA)
+#' genesis(summarydata,filter=F,modelcomponents=2, cores=24, LDcutoff=0.1,LDwindow=1,M=1070777,c0=10, BICgamma=0.5,print=TRUE,printfreq=10, starting=NA,startingpic=0.01, tolerance=NA,qqplot=TRUE, qqplotCI=0.8, qqplotname=paste0(""), summaryGWASdataLDsave=FALSE, qqplotdatasave=FALSE, qqaxis=10,siblingrisk=FALSE,herit_liability=FALSE,sample_prevalence=NA,population_prevalence=NA)
                      
 genesis <- function(summarydata, filter=FALSE, 
                     modelcomponents=2, cores=10, LDcutoff=0.1,LDwindow=1,M=1070777,
                     c0=10, BICgamma=0.5, print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA, 
                     qqplot=TRUE, qqplotCI=0.8, qqplotname="", nsim=100, 
                     summaryGWASdataLDsave=FALSE, qqplotdatasave=FALSE, qqaxis=10,
-                    siblingrisk=FALSE,herit_liability=FALSE,sample_prevelance=NA,population_prevelance=NA){
+                    siblingrisk=FALSE,herit_liability=FALSE,sample_prevalence=NA,population_prevalence=NA){
   
   #----------------------------------------------------#----------------------------------------------------
   # I. Check input data set
