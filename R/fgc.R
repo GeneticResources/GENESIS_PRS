@@ -14,7 +14,7 @@ fgc <- function(est,n,nsim=100,M=1070777){
   lambdaGC = rep(0,nsim)
   
   # load the LD structure
-  data("TaggingSNPinx"); data("pairwiseLD"); data(LD_hm3_cutoff01); SNPrsID = LD_hm3_cutoff01$SNPname; K=M;
+  data("TaggingSNPinx"); data("pairwiseLD"); data(LDwindow1MB_cutoff0.1); SNPrsID = dataLD$SNPname; K=M;
   
   if(length(est)==3) components=2
   if(length(est)==5) components=3
