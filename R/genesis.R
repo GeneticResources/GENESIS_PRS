@@ -1,44 +1,54 @@
 #' Illustration of genesis()
 #'
 #' This function allows to get parameter estimates from fitting the mixture model.
-#' @param summarydata susummay-level GWAS data, containing 3 columns: 
+#' @param summarydata summay-level GWAS data, containing 3 columns: 
 #' SNP (SNP rsID), 
 #' Z (GWAS test z-statistic), 
 #' N (GWAS study sample size which can be different for different SNPs)
+#' @param filter logical; if TRUE, the input summary data will be filtered.
 #' @param modelcomponents 2 or 3, indicating fitting 2-component or 3-component model.
-#' @param cores Number of CPU threads in parallel computing.
-#' @param LDcutoff LDcutoff=1, LD score is calculated based on cutoff 0.1; cutoff=2, 0.2.
-#' @param c0 An assumed maximum number of underlying susceptibility SNPs tagged by any individual GWAS marker. By default, c0 is set at 10.
-#' @param BICgamma A tuning parameter in calculating BIC in (0,1). By default, BICgamma is set at 0.5.
-#' @param print Logical; if TRUE, the EM algorithm details will be output.
-#' @param printfreq  Number indicating every printfreq steps, the EM results will be output.
-#' @param starting The starting values for the model. For 2-component model, the starting value of (pic, sigmasq, a); for 3-component model, (pic, p1, sigmasq1, sigmasq2, a). 
-#' @param staringpic The starting value for pic when staring==NA. 
-#' @param tolerance The accuracy of the tolerance. For 2-component model, it is a 6-dim vector with tolerance value for (pic,sigmasq,a,llk,maxEM,steps). For 3-component model, it is a 8-dim vector with tolerance value for (pic,p1,sigmasq1,sigmasq2,a,llk,maxEM,steps).
-#' @param qqplot Logical; if TRUE, the QQ plot will be ploted.
-#' @param qqplotCI The threshold of confidence interval in the QQ plot.
-#' @param qqplotname The name of the QQ plot pdf files. 
-#' @param nsim The total number of simulations based on which the QQ plot is obtained. 
-#' @param summaryGWASLDdatasave Logical; if TRUE, the summary GWAS data as well as the LD information will be saved.
-#' @param qqplotdatasave Logical; the simulated data to generate the QQ plot will be saved.
-#' @param siblingrisk Logical; if TRUE, the sibling risk will also be calculated.
-#' @param filter Logical; if TRUE, the input summary data will be filtered.
+#' @param cores number of CPU threads in parallel computing.
+#' @param LDcutoff a number from (0.05, 0.1, 0.2); indicating LD score is calculated based on the particular cutoff. By default, it is 0.1.
+#' @param LDwindow a number from (0.5, 1, 2); indicating LD score is calculated based on the particular window size (MB). By default, it is 1 MB.
+#' @param M the total number of SNPs in the reference panel used when calculating LD score; by default, it is 1070777.
+#' @param c0 an assumed maximum number of underlying susceptibility SNPs tagged by any individual GWAS marker. By default, c0 is set at 10.
+#' @param BICgamma a tuning parameter in calculating BIC in (0,1). By default, BICgamma is set at 0.5.
+#' @param print logical; if TRUE, the EM algorithm details will be output.
+#' @param printfreq  number indicating every printfreq steps, the EM results will be output.
+#' @param starting the starting values for the model. For 2-component model, the starting value of (pic, sigmasq, a); for 3-component model, (pic, p1, sigmasq1, sigmasq2, a). 
+#' @param staringpic the starting value for pic when staring==NA. 
+#' @param tolerance the accuracy of the tolerance. For 2-component model, it is a 6-dim vector with tolerance value for (pic,sigmasq,a,llk,maxEM,steps). For 3-component model, it is a 8-dim vector with tolerance value for (pic,p1,sigmasq1,sigmasq2,a,llk,maxEM,steps).
+#' @param qqplot logical; if TRUE, the QQ plot will be ploted.
+#' @param qqplotCI the threshold of confidence interval in the QQ plot.
+#' @param qqplotname the name of the QQ plot pdf files. 
+#' @param nsim the total number of simulations based on which the QQ plot is obtained. 
+#' @param summaryGWASdataLDsave logical; if TRUE, the summary GWAS data as well as the LD information will be saved.
+#' @param qqplotdatasave logical; if TRUE, the simulated data to generate the QQ plot will be saved.
+#' @param qqaxis numeric; the x- and y-axis limits is from 0 to qqaxis for the QQ plot. By default, it is 10. 
+#' @param siblingrisk logical; if TRUE, the sibling risk will also be calculated.
+#' @param herit_liability logical; if TRUE, the heritability in log-odds-ratio scale will be transferred to liability scale.
+#' @param sample_prevelance sample prevelance for the disease trait.
+#' @param population_prevelance population prevelance for the disease trait. 
 #' @keywords 
 #' @export
 #' 
 #' @examples
-#' genesis(summarydata,modelcomponents=2, cores=24, LDcutoff=1, c0=10, BICgamma=0.5,print=TRUE,printfreq=10, starting=NA,startingpic=0.01, tolerance=NA,qqplot=TRUE, qqplotCI=0.8, qqplotname=paste0(""),summaryGWASLDdatasave=FALSE,qqplotdatasave=T,siblingrisk=FALSE,filter=F)
+#' genesis(summarydata,filter=F,modelcomponents=2, cores=24, LDcutoff=0.1,LDwindow=1,M=1070777,c0=10, BICgamma=0.5,print=TRUE,printfreq=10, starting=NA,startingpic=0.01, tolerance=NA,qqplot=TRUE, qqplotCI=0.8, qqplotname=paste0(""), summaryGWASdataLDsave=FALSE, qqplotdatasave=FALSE, qqaxis=10,siblingrisk=FALSE,herit_liability=FALSE,sample_prevelance=NA,population_prevelance=NA)
                      
-genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10, BICgamma=0.5, print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA, qqplot=TRUE, qqplotCI=0.8, qqplotname="", nsim=100, summaryGWASLDdatasave=FALSE, qqplotdatasave=FALSE, siblingrisk=FALSE, filter=FALSE){
+genesis <- function(summarydata, filter=FALSE, 
+                    modelcomponents=2, cores=10, LDcutoff=0.1,LDwindow=1,M=1070777,
+                    c0=10, BICgamma=0.5, print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA, 
+                    qqplot=TRUE, qqplotCI=0.8, qqplotname="", nsim=100, 
+                    summaryGWASdataLDsave=FALSE, qqplotdatasave=FALSE, qqaxis=10,
+                    siblingrisk=FALSE,herit_liability=FALSE,sample_prevelance=NA,population_prevelance=NA){
   
   #----------------------------------------------------#----------------------------------------------------
-  # I. Input values check 
+  # I. Check input data set
   #----------------------------------------------------#----------------------------------------------------
-  P = 5 # the total number of parameters in the 3-component model. 
   #----------------------------------------------------
   # summary GWAS data format check
   if(ncol(summarydata)!=3){
-    stop("the summary GWAS data should have 3 columns with (SNP rsID, Z-statistic, Sample size)!")
+    stop("The summary GWAS data should have 3 columns with (SNP rsID, Z-statistic, Sample size)!")
   }
   
   if(any(!is.na(starting))){
@@ -102,10 +112,7 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
   #----------------------------------------------------#----------------------------------------------------
   # III. merge the summary GWAS data with the LD score data, and extract the variables needed for analysis.
   #----------------------------------------------------#----------------------------------------------------
-  M <- 1070777 # the total number of SNPs in the reference panel used for calculating LD score (r^2>0.1), i.e., the Hapmap3 panel
-  
-  if(LDcutoff==1){data(LD_hm3_cutoff01); LDdata = LD_hm3_cutoff01}
-  if(LDcutoff==2){data(LD_hm3_cutoff02); LDdata = LD_hm3_cutoff02}
+  data(list=paste0("LDwindow",LDwindow,"MB_cuoff",LDcutoff))
   
   summarydata$SNP <- as.character(summarydata$SNP)
   summarydata$Z <- as.numeric(as.character(summarydata$Z))
@@ -120,7 +127,7 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
   # get the variable needed for our method.
   summarydata$betahat <- summarydata$Z/sqrt(summarydata$N)
   summarydata$varbetahat <- 1/summarydata$N
-  df <- merge(summarydata, LDdata,by.x="SNP",by.y="SNPname",sort=F)
+  df <- merge(summarydata, dataLD,by.x="SNP",by.y="SNPname",sort=F)
 
   betahat <- as.numeric(as.character(df$betahat))
   varbetahat <- as.numeric(as.character(df$varbetahat))
@@ -130,8 +137,8 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
   TaggingSNPs <- df$TaggingSNPs
   K <- length(betahat)
   n <- as.numeric(as.character(df$N))
-
   N_SNPs_summary <- length(betahat)
+  
   #----------------------------------------------------#----------------------------------------------------
   # IV. starting value
   #----------------------------------------------------#----------------------------------------------------
@@ -207,7 +214,6 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
     #----------------------------------------------------
     # calculate variance
     #----------------------------------------------------
-    time1 <- proc.time()[3]
     m_S <- SS(est,betahat, varbetahat, ldscore, c0, Nstar, cores); # score matrix K*3
     m_I <- I(est,betahat, varbetahat, ldscore, c0, Nstar, cores); # information matrix 3*3
     
@@ -231,55 +237,101 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
     llk = fit[2]
     ds = sum(diag(inv_I %*% J))
     aic = -2*llk + 2*ds
-    bic = -2*llk + ds*log(mean(n)) + 2*BICgamma*log(P^ds)
+    bic = -2*llk + ds*log(mean(n)) + 2*BICgamma*log(5^ds)
    
     temtem <- matrix(c(M*est[2], M*est[1], 0), ncol=1)
     sd_heritability <- sqrt( t(temtem) %*% var_est %*% temtem)  # standard error of heritability
     sd_causalnum <- M*sd_est[1]
-    runhour_var <- (proc.time()[3]-time1)/3600
-    
-    
-    if(siblingrisk==T){
-      risk <- sqrt(exp(heritability))
-      sd_risk <- sqrt(risk*sd_heritability^2/2)
+
+  
+    if(herit_liability==F | (herit_liability==T & (is.na(population_prevalence) | is.na(sample_prevalence)))){
+      if(herit_liability==T) print("No population prevalence or sample prevalence input, the heritability will be output in log-odds-ratio scale!")
       
-      estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
-                        "Total heritability (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
-                        "Sibling risk (sd)"=paste0(format(risk,digits=3)," (",format(sd_risk,digits=4), ")"),
-                        "parameter (pic, sigmasq, a) estimates" = est,
-                        "S.D. of parameter estimates"=sd_est,
-                        "Covariance matrix of parameter estimates"=var_est,
-                        "log-likelihood of fitted model" = fit[2],
-                        "AIC" = aic,
-                        "BIC" = bic,
-                        "ds" = ds, "c0" = c0, "Information matrix" = m_I, "J"=J,
-                        "Total number of SNPs in the Hapmap3 reference panel"=M,
-                        "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary
-                        )
+      if(siblingrisk==T){
+        risk <- sqrt(exp(heritability))
+        sd_risk <- sqrt(risk*sd_heritability^2/2)
+        
+        estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
+                          "Total heritability (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
+                          "Sibling risk (sd)"=paste0(format(risk,digits=3)," (",format(sd_risk,digits=4), ")"),
+                          "parameter (pic, sigmasq, a) estimates" = est,
+                          "S.D. of parameter estimates"=sd_est,
+                          "Covariance matrix of parameter estimates"=var_est,
+                          "log-likelihood of fitted model" = fit[2],
+                          "AIC" = aic,
+                          "BIC" = bic,
+                          "ds" = ds, "c0" = c0, "Information matrix" = m_I, "J"=J,
+                          "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary,
+                          "Total time in fitting the 2-component model (in hours)" = runhour
+        )
+      }
+      
+      if(siblingrisk==F){
+        estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
+                          "Total heritability (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
+                          "parameter (pic, sigmasq, a) estimates" = est,
+                          "S.D. of parameter estimates"=sd_est,
+                          "Covariance matrix of parameter estimates"=var_est,
+                          "log-likelihood of fitted model" = fit[2],
+                          "AIC" = aic,
+                          "BIC" = bic,
+                          "ds" = ds, "c0" = c0, "Information matrix" = m_I, "J"=J,
+                          "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary,
+                          "Total time in fitting the 2-component model (in hours)" = runhour
+        )
+      }
     }
     
-    if(siblingrisk==F){
-      estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
-                        "Total heritability (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
-                        "parameter (pic, sigmasq, a) estimates" = est,
-                        "S.D. of parameter estimates"=sd_est,
-                        "Covariance matrix of parameter estimates" = var_est,
-                        "log-likelihood of fitted model" = fit[2],
-                        "AIC" = aic,
-                        "BIC" = bic,
-                        "ds" = ds,"c0" = c0, "Information matrix" = m_I,"J"=J,
-                        "Total number of SNPs in the Hapmap3 reference panel"=M,
-                        "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary
-                        )
-    }
     
+    if(herit_liability==T & (!is.na(population_prevalence) & (!is.na(sample_prevalence)))){
+      
+      tem <- herit_transfer(heritability,sd_heritability, population_prevalence,sample_prevalence)
+
+      if(siblingrisk==T){
+        risk <- sqrt(exp(heritability))
+        sd_risk <- sqrt(risk*sd_heritability^2/2)
+        
+        estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
+                          "Total heritability in log-odds-ratio scale (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
+                          "Total heritability in observed scale (sd)"=paste0(format(tem$Hobserved,digits=3)," (",format(tem$se_Hobserved,digits=4), ")"),
+                          "Total heritability in liability scale (sd)"=paste0(format(tem$Hliability,digits=3)," (",format(tem$se_Hliability,digits=4), ")"),
+                          "Sibling risk (sd)"=paste0(format(risk,digits=3)," (",format(sd_risk,digits=4), ")"),
+                          "parameter (pic, sigmasq, a) estimates" = est,
+                          "S.D. of parameter estimates"=sd_est,
+                          "Covariance matrix of parameter estimates"=var_est,
+                          "log-likelihood of fitted model" = fit[2],
+                          "AIC" = aic,
+                          "BIC" = bic,
+                          "ds" = ds, "c0" = c0, "Information matrix" = m_I, "J"=J,
+                          "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary,
+                          "Total time in fitting the 2-component model (in hours)" = runhour
+        )
+      }
+      
+      if(siblingrisk==F){
+        estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
+                          "Total heritability in log-odds-ratio scale (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
+                          "Total heritability in observed scale (sd)"=paste0(format(tem$Hobserved,digits=3)," (",format(tem$se_Hobserved,digits=4), ")"),
+                          "Total heritability in liability scale (sd)"=paste0(format(tem$Hliability,digits=3)," (",format(tem$se_Hliability,digits=4), ")"),
+                          "parameter (pic, sigmasq, a) estimates" = est,
+                          "S.D. of parameter estimates"=sd_est,
+                          "Covariance matrix of parameter estimates"=var_est,
+                          "log-likelihood of fitted model" = fit[2],
+                          "AIC" = aic,
+                          "BIC" = bic,
+                          "ds" = ds, "c0" = c0, "Information matrix" = m_I, "J"=J,
+                          "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary,
+                          "Total time in fitting the 2-component model (in hours)" = runhour
+        )
+      }
+    }
     
     if(qqplot==T){
       a <- est[3]; if(a<0) a <- 0; 
       # ------------------------------------------------
       obs_z <- betahat/sqrt(varbetahat)
       obs_pvalues <- 2*pnorm(-abs(obs_z))
-      obs_lambda <- median(obs_z^2)/0.456
+      obs_lambda <- median(obs_z^2)/qchisq(0.5,1)
       log_obs_pvalues <- -log10(obs_pvalues)
       log_obs_pvalues <- sort(log_obs_pvalues)
       # ------------------------------------------------
@@ -311,7 +363,7 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
         betahat <- betamarginal + error[temorder][1:K] /sqrt(n) + rnorm(1,mean=0,sd=sqrt(a))
         exp_z[i,] <- betahat*sqrt(n)
         log_exp_pvalues[i,] <- -log10(2*pnorm( -abs(exp_z[i,])) )
-        exp_lambda[i] <- median(exp_z[i,]^2)/0.456
+        exp_lambda[i] <- median(exp_z[i,]^2)/qchisq(0.5,1)
         log_exp_pvalues[i,] <- sort(log_exp_pvalues[i,])
       }
       
@@ -329,7 +381,7 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
       pdf(file=paste0(qqplotname,"qq2com.pdf"))
       inx <- seq(1,nrow(QQdata),10)
       QQdata <- QQdata[inx,]
-      plot(QQdata$mean_log_exp_pvalues, QQdata$log_obs_pvalues, type="l",xlab=expression(Expected~~-log[10](italic(P)~value)), xlim=c(0,10),ylim=c(0,10),ylab=expression(Observed~~-log[10](italic(P)~value)))
+      plot(QQdata$mean_log_exp_pvalues, QQdata$log_obs_pvalues, type="l",xlab=expression(Expected~~-log[10](italic(P)~value)), xlim=c(0,qqaxis),ylim=c(0,qqaxis),ylab=expression(Observed~~-log[10](italic(P)~value)))
       polygon(c(QQdata$lower,rev(QQdata$upper)),c(QQdata$log_obs_pvalues,rev(QQdata$log_obs_pvalues)),col = "grey75", border = FALSE)
       # points(QQdata$mean_log_exp_pvalues, QQdata$log_obs_pvalues)
       abline(a=0,b=1)
@@ -347,10 +399,10 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
       qqplotdata <- list(data=QQdata, observedlambda=obs_lambda,
                        meanEXPlambda=m.lambda, lowEXPlambda=l.lambda, highEXPlambda=h.lambda)
       
-      if(qqplotdatasave==T & summaryGWASLDdatasave==T){result <- list(estimates=estimates,summaryGWASLDdata=df,qqplotdata=qqplotdata)}
-      if(qqplotdatasave==T & summaryGWASLDdatasave==F){result <- list(estimates=estimates,qqplotdata=qqplotdata)}
-      if(qqplotdatasave==F & summaryGWASLDdatasave==T){result <- list(estimates=estimates,summaryGWASLDdata=df)}
-      if(qqplotdatasave==F & summaryGWASLDdatasave==F){result <- list(estimates=estimates)}
+      if(qqplotdatasave==T & summaryGWASdataLDsave==T){result <- list(estimates=estimates,summaryGWASdataLD=df,qqplotdata=qqplotdata)}
+      if(qqplotdatasave==T & summaryGWASdataLDsave==F){result <- list(estimates=estimates,qqplotdata=qqplotdata)}
+      if(qqplotdatasave==F & summaryGWASdataLDsave==T){result <- list(estimates=estimates,summaryGWASdataLD=df)}
+      if(qqplotdatasave==F & summaryGWASdataLDsave==F){result <- list(estimates=estimates)}
     }
     if(qqplot==F){
       result <- list(estimates=estimates)
@@ -379,7 +431,6 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
     #----------------------------------------------------
     # calculate variance
     #----------------------------------------------------
-    time1 <- proc.time()[3]
     m_S <- SS3(est,betahat, varbetahat, ldscore, c0, Nstar, cores); # score matrix K*3
     m_I <- I3(est,betahat, varbetahat, ldscore, c0, Nstar, cores); # information matrix 3*3
     
@@ -402,7 +453,7 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
     #----------------------------------------------------
     ds = sum(diag(inv_I %*% J))
     aic = -2*llk + 2*ds
-    bic = -2*llk + ds*log(mean(n)) + 2*BICgamma*log(P^ds)
+    bic = -2*llk + ds*log(mean(n)) + 2*BICgamma*log(5^ds)
     
     temtem = matrix(c(M*(est[2]*est[3] + (1-est[2])*est[4]), 
                       est[1]*(est[3] - est[4])*M, 
@@ -420,54 +471,110 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
     
     tem_heritsmall = matrix(c(M*(1-est[2])*est[4],-M*est[1]*est[4], 0, M*est[1]*(1-est[2]), 0),ncol=1)
     sd_heritsmall = sqrt( t(tem_heritsmall) %*% var_est %*% tem_heritsmall)
-    runhour_var <- (proc.time()[3]-time1)/3600
-    
-    if(siblingrisk==T){
-      risk <- sqrt(exp(heritability))
-      sd_risk <- sqrt(risk*sd_heritability^2/2)
+
+    if(herit_liability==F | (herit_liability==T & (is.na(population_prevalence) | is.na(sample_prevalence)))){
+      if(herit_liability==T) print("No population prevalence or sample prevalence input, the heritability will be output in log-odds-ratio scale!")
       
-      estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
-                        "Number of sSNPs in the cluster with larger variance component (sd)"=paste0(format(largenum,digits=3)," (",format(sd_largenum,digits=4), ")"),
-                        "Total heritability (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
-                        "Sibling risk (sd)"=paste0(format(risk,digits=3)," (",format(sd_risk,digits=4), ")"),
-                        "Heritability explained by the cluster with larger variance component (sd)"=paste0(format(heritlarge,digits=3)," (",format(sd_heritlarge,digits=4), ")"),
-                        "Heritability explained by the cluster with samller variance component"=paste0(format(heritsmall,digits=3)," (",format(sd_heritsmall,digits=4), ")"),
-                        "parameter (pic, p1, sigmasq1, sigmasq2, a) estimates" = est, 
-                        "S.D. of parameter estimates"=sd_est,
-                        "Covariance matrix of parameter estimates" = var_est,
-                        "log-likelihood of fitted model" = fit[2],
-                        "AIC" = aic,
-                        "BIC" = bic,
-                        "ds" = ds,"c0" = c0, "Information matrix" = m_I,"J"=J,
-                        "Total number of SNPs in the Hapmap3 reference panel"=M,
-                        "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary
-                        )
+      if(siblingrisk==T){
+        risk <- sqrt(exp(heritability))
+        sd_risk <- sqrt(risk*sd_heritability^2/2)
+        
+        estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
+                          "Number of sSNPs in the cluster with larger variance component (sd)"=paste0(format(largenum,digits=3)," (",format(sd_largenum,digits=4), ")"),
+                          "Total heritability (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
+                          "Sibling risk (sd)"=paste0(format(risk,digits=3)," (",format(sd_risk,digits=4), ")"),
+                          "Heritability explained by the cluster with larger variance component (sd)"=paste0(format(heritlarge,digits=3)," (",format(sd_heritlarge,digits=4), ")"),
+                          "Heritability explained by the cluster with samller variance component"=paste0(format(heritsmall,digits=3)," (",format(sd_heritsmall,digits=4), ")"),
+                          "parameter (pic, p1, sigmasq1, sigmasq2, a) estimates" = est, 
+                          "S.D. of parameter estimates"=sd_est,
+                          "Covariance matrix of parameter estimates" = var_est,
+                          "log-likelihood of fitted model" = fit[2],
+                          "AIC" = aic,
+                          "BIC" = bic,
+                          "ds" = ds,"c0" = c0, "Information matrix" = m_I,"J"=J,
+                          "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary,
+                          "Total time in fitting the 3-component model (in hours)" = runhour
+        )
+        
+      }
+      
+      if(siblingrisk==F){
+        estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
+                          "Number of sSNPs in the cluster with larger variance component (sd)"=paste0(format(largenum,digits=3)," (",format(sd_largenum,digits=4), ")"),
+                          "Total heritability (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
+                          "Heritability explained by the cluster with larger variance component (sd)"=paste0(format(heritlarge,digits=3)," (",format(sd_heritlarge,digits=4), ")"),
+                          "Heritability explained by the cluster with samller variance component"=paste0(format(heritsmall,digits=3)," (",format(sd_heritsmall,digits=4), ")"),
+                          "parameter (pic, p1, sigmasq1, sigmasq2, a) estimates" = est, 
+                          "S.D. of parameter estimates"=sd_est,
+                          "Covariance matrix of parameter estimates" = var_est,
+                          "log-likelihood of fitted model" = fit[2],
+                          "AIC" = aic,
+                          "BIC" = bic,
+                          "ds" = ds,"c0" = c0, "Information matrix" = m_I,"J"=J,
+                          "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary,
+                          "Total time in fitting the 3-component model (in hours)" = runhour
+        )
+        
+      }
     }
     
-    if(siblingrisk==F){
-      estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
-                        "Number of sSNPs in the cluster with larger variance component (sd)"=paste0(format(largenum,digits=3)," (",format(sd_largenum,digits=4), ")"),
-                        "Total heritability (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
-                        "Heritability explained by the cluster with larger variance component (sd)"=paste0(format(heritlarge,digits=3)," (",format(sd_heritlarge,digits=4), ")"),
-                        "Heritability explained by the cluster with samller variance component"=paste0(format(heritsmall,digits=3)," (",format(sd_heritsmall,digits=4), ")"),
-                        "parameter (pic, p1, sigmasq1, sigmasq2, a) estimates" = est, 
-                        "S.D. of parameter estimates"=sd_est,
-                        "Covariance matrix of parameter estimates" = var_est,
-                        "log-likelihood of fitted model" = fit[2],
-                        "AIC" = aic,
-                        "BIC" = bic,
-                        "ds" = ds,"c0" = c0, "Information matrix" = m_I,"J"=J,
-                        "Total number of SNPs in the Hapmap3 reference panel"=M,
-                        "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary
-                        )
+    
+    if(herit_liability==T & (!is.na(population_prevalence) & (!is.na(sample_prevalence)))){
+      
+      tem <- herit_transfer(heritability,sd_heritability, population_prevalence,sample_prevalence)
+      
+      if(siblingrisk==T){
+        risk <- sqrt(exp(heritability))
+        sd_risk <- sqrt(risk*sd_heritability^2/2)
+        
+        estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
+                          "Number of sSNPs in the cluster with larger variance component (sd)"=paste0(format(largenum,digits=3)," (",format(sd_largenum,digits=4), ")"),
+                          "Total heritability in log-odds-ratio scale (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
+                          "Total heritability in observed scale (sd)"=paste0(format(tem$Hobserved,digits=3)," (",format(tem$se_Hobserved,digits=4), ")"),
+                          "Total heritability in liability scale (sd)"=paste0(format(tem$Hliability,digits=3)," (",format(tem$se_Hliability,digits=4), ")"),
+                          "Sibling risk (sd)"=paste0(format(risk,digits=3)," (",format(sd_risk,digits=4), ")"),
+                          "Heritability explained by the cluster with larger variance component (sd)"=paste0(format(heritlarge,digits=3)," (",format(sd_heritlarge,digits=4), ")"),
+                          "Heritability explained by the cluster with samller variance component"=paste0(format(heritsmall,digits=3)," (",format(sd_heritsmall,digits=4), ")"),
+                          "parameter (pic, p1, sigmasq1, sigmasq2, a) estimates" = est, 
+                          "S.D. of parameter estimates"=sd_est,
+                          "Covariance matrix of parameter estimates" = var_est,
+                          "log-likelihood of fitted model" = fit[2],
+                          "AIC" = aic,
+                          "BIC" = bic,
+                          "ds" = ds,"c0" = c0, "Information matrix" = m_I,"J"=J,
+                          "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary,
+                          "Total time in fitting the 3-component model (in hours)" = runhour
+        )
+      }
+      
+      if(siblingrisk==F){
+        estimates <- list("Number of sSNPs (sd)"=paste0(format(causalnum,digits=3)," (",format(sd_causalnum,digits=4), ")"),
+                          "Number of sSNPs in the cluster with larger variance component (sd)"=paste0(format(largenum,digits=3)," (",format(sd_largenum,digits=4), ")"),
+                          "Total heritability in log-odds-ratio scale (sd)"=paste0(format(heritability,digits=3)," (",format(sd_heritability,digits=4), ")"),
+                          "Total heritability in observed scale (sd)"=paste0(format(tem$Hobserved,digits=3)," (",format(tem$se_Hobserved,digits=4), ")"),
+                          "Total heritability in liability scale (sd)"=paste0(format(tem$Hliability,digits=3)," (",format(tem$se_Hliability,digits=4), ")"),
+                          "Heritability explained by the cluster with larger variance component (sd)"=paste0(format(heritlarge,digits=3)," (",format(sd_heritlarge,digits=4), ")"),
+                          "Heritability explained by the cluster with samller variance component"=paste0(format(heritsmall,digits=3)," (",format(sd_heritsmall,digits=4), ")"),
+                          "parameter (pic, p1, sigmasq1, sigmasq2, a) estimates" = est, 
+                          "S.D. of parameter estimates"=sd_est,
+                          "Covariance matrix of parameter estimates" = var_est,
+                          "log-likelihood of fitted model" = fit[2],
+                          "AIC" = aic,
+                          "BIC" = bic,
+                          "ds" = ds,"c0" = c0, "Information matrix" = m_I,"J"=J,
+                          "Total number of SNPs in the GWAS study after quality control"=N_SNPs_summary,
+                          "Total time in fitting the 3-component model (in hours)" = runhour
+        )
+      }
     }
+    
     
     if(qqplot==T){
       a <- est[5]; if(a<0) a <- 0; 
       # ------------------------------------------------
       obs_z <- betahat/sqrt(varbetahat)
       obs_pvalues <- 2*pnorm(-abs(obs_z))
-      obs_lambda <- median(obs_z^2)/0.456
+      obs_lambda <- median(obs_z^2)/qchisq(0.5,1)
       log_obs_pvalues <- -log10(obs_pvalues)
       log_obs_pvalues <- sort(log_obs_pvalues)
       # ------------------------------------------------
@@ -499,7 +606,7 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
         betahat <- betamarginal + error[temorder][1:K] /sqrt(n) + rnorm(1,mean=0,sd=sqrt(a))
         exp_z[i,] <- betahat*sqrt(n)
         log_exp_pvalues[i,] <- -log10(2*pnorm( -abs(exp_z[i,])) )
-        exp_lambda[i] <- median(exp_z[i,]^2)/0.456
+        exp_lambda[i] <- median(exp_z[i,]^2)/qchisq(0.5,1)
         log_exp_pvalues[i,] <- sort(log_exp_pvalues[i,])
       }
       
@@ -517,7 +624,7 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
       pdf(file=paste0(qqplotname,"qq3com.pdf"))
       inx <- seq(1,nrow(QQdata),10)
       QQdata <- QQdata[inx,]
-      plot(QQdata$mean_log_exp_pvalues, QQdata$log_obs_pvalues, type="l",xlab=expression(Expected~~-log[10](italic(P)~value)), xlim=c(0,10),ylim=c(0,10),ylab=expression(Observed~~-log[10](italic(P)~value)))
+      plot(QQdata$mean_log_exp_pvalues, QQdata$log_obs_pvalues, type="l",xlab=expression(Expected~~-log[10](italic(P)~value)), xlim=c(0,qqaxis),ylim=c(0,qqaxis),ylab=expression(Observed~~-log[10](italic(P)~value)))
       polygon(c(QQdata$lower,rev(QQdata$upper)),c(QQdata$log_obs_pvalues,rev(QQdata$log_obs_pvalues)),col = "grey75", border = FALSE)
       # points(QQdata$mean_log_exp_pvalues, QQdata$log_obs_pvalues)
       abline(a=0,b=1)
@@ -535,10 +642,10 @@ genesis <- function(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10,
       qqplotdata <- list(data=QQdata, observedlambda=obs_lambda,
                          meanEXPlambda=m.lambda, lowEXPlambda=l.lambda, highEXPlambda=h.lambda)
       
-      if(qqplotdatasave==T & summaryGWASLDdatasave==T){result <- list(estimates=estimates,summaryGWASLDdata=df,qqplotdata=qqplotdata)}
-      if(qqplotdatasave==T & summaryGWASLDdatasave==F){result <- list(estimates=estimates,qqplotdata=qqplotdata)}
-      if(qqplotdatasave==F & summaryGWASLDdatasave==T){result <- list(estimates=estimates,summaryGWASLDdata=df)}
-      if(qqplotdatasave==F & summaryGWASLDdatasave==F){result <- list(estimates=estimates)}
+      if(qqplotdatasave==T & summaryGWASdataLDsave==T){result <- list(estimates=estimates,summaryGWASdataLD=df,qqplotdata=qqplotdata)}
+      if(qqplotdatasave==T & summaryGWASdataLDsave==F){result <- list(estimates=estimates,qqplotdata=qqplotdata)}
+      if(qqplotdatasave==F & summaryGWASdataLDsave==T){result <- list(estimates=estimates,summaryGWASdataLD=df)}
+      if(qqplotdatasave==F & summaryGWASdataLDsave==F){result <- list(estimates=estimates)}
     }
     if(qqplot==F){
       result <- list(estimates=estimates)
