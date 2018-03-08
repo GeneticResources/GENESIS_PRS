@@ -353,7 +353,7 @@ vec EM_func(const vec &par_start,
     new_sig(0) = par(1); new_sig(1) = par(2);
     for(int j=0; j<steps; j++){
       old_sig = onestep_varcomponent(new_sig, w, betahat,varbetahat, ldscore, Nstar, num_threads);
-      if(abs(old_sig(0)-new_sig(0))<1e-20 & abs(old_sig(1)-new_sig(1))<1e-20) break;
+      if((abs(old_sig(0)-new_sig(0))<1e-20) & (abs(old_sig(1)-new_sig(1))<1e-20)) break;
       new_sig(0) = old_sig(0); new_sig(1) = old_sig(1);
       if(new_sig(0) > 1) new_sig(0) = 1e-5;
       if(new_sig(0) < 0) new_sig(0) = 1e-12;
@@ -391,7 +391,7 @@ vec EM_func(const vec &par_start,
     error_a = abs(prev_par(2) - par(2)) ;
     increase_ll = (llk - prev_llk)/prev_llk ;
 
-    if((error_pi< eps1 & error_sigsq <eps2 & error_a <eps3) & (abs(increase_ll) <eps) ) {break;}
+    if(((error_pi< eps1) & (error_sigsq <eps2) & (error_a <eps3)) & (abs(increase_ll) <eps) ) {break;}
   }
   // calcualte the logliklihood under the new par
   llk = loglikelihood(par,betahat,varbetahat,ldscore,c0,Nstar, num_threads);
@@ -915,7 +915,7 @@ vec EM_func3(const vec &par_start, const vec & lower_pi, const vec & upper_pi,
         finish_w = clock();
         
         // update proportion
-        if (pic>=lower_pi(0) & pic<=upper_pi(0) & p0>=lower_pi(1) & p0 <= upper_pi(1)) tem_p = update_p3(w,Nstar,num_threads);
+        if ((pic>=lower_pi(0)) & (pic<=upper_pi(0)) & (p0>=lower_pi(1)) & (p0 <= upper_pi(1))) tem_p = update_p3(w,Nstar,num_threads);
         finish_p = clock(); 
         
         if (pic < lower_pi(0)) tem_p(0) = lower_pi(0);
@@ -927,7 +927,7 @@ vec EM_func3(const vec &par_start, const vec & lower_pi, const vec & upper_pi,
         tem_sig(0) = sig1; tem_sig(1) = sig2; tem_sig(2) = a;
         for(int j=0; j<steps; j++){
             old = onestep_varcomponent3(tem_sig, w, betahat,varbetahat, ldscore, Nstar,num_threads);
-            if(abs(old(0)-tem_sig(0))<1e-20 & abs(old(1)-tem_sig(1))<1e-20 & abs(old(2)-tem_sig(2))<1e-20 ) break;
+            if((abs(old(0)-tem_sig(0))<1e-20) & (abs(old(1)-tem_sig(1))<1e-20) & (abs(old(2)-tem_sig(2))<1e-20) ) break;
             tem_sig(0) = old(0); tem_sig(1) = old(1); tem_sig(2) = old(2);
         }
         if(tem_sig(0) > 1) tem_sig(0) = 1e-5;
@@ -969,7 +969,7 @@ vec EM_func3(const vec &par_start, const vec & lower_pi, const vec & upper_pi,
         error_a = abs(prev_par(4) - par(4)) ;
         increase_ll = (llk - prev_llk)/prev_llk;
         
-        if((error_pi< eps1 & error_p0<eps2 & error_sig1 <eps3 & error_sig2<eps4 & error_a<eps5) & (abs(increase_ll) <eps)){break;}
+        if(((error_pi< eps1) & (error_p0<eps2) & (error_sig1 <eps3) & (error_sig2<eps4) & (error_a<eps5)) & (abs(increase_ll) <eps)){break;}
     }
     
     // update log-likelihood
