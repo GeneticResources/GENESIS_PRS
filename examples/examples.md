@@ -34,7 +34,7 @@ plot(x_seq, y_seq,type="l",ylim=c(0,250),xlab="Joint effect size", ylab="Probabi
 
 ### Make future projections with specified sample size n
 ```{r future projections}
-projection(est,v,n=253288)
+projection(est,v,n=253288,nsim=1000)
 ```
 
 ### Calculate number of SNPs falling in an interval
@@ -83,7 +83,7 @@ plot(x_seq, y_seq,type="l",ylim=c(0,250),xlab="Joint effect size", ylab="Probabi
 
 ### Make future projections with specified sample size n
 ```{r future projections}
-projection(est,v,n=253288)
+projection(est,v,n=253288,nsim=1000)
 ```
 
 ### Calculate number of SNPs falling in an interval
