@@ -7,7 +7,12 @@ GENetic Effect-Size distribution Inference from Summary-level data
 Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies. 
 }
 \usage{
-genesis(summarydata, modelcomponents=2, cores=10, LDcutoff=1, c0=10, BICgamma=0.5, print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA, qqplot=TRUE, qqplotCI=0.8, qqplotname="", nsim=100, summaryGWASdataLDsave=FALSE, qqplotdatasave=FALSE, siblingrisk=FALSE, filter=FALSE)
+genesis(summarydata, filter=FALSE, 
+                    modelcomponents=2, cores=10, LDcutoff=0.1,LDwindow=1,M=1070777,
+                    c0=10, BICgamma=0.5, print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA, 
+                    qqplot=TRUE, qqplotCI=0.8, qqplotname="", nsim=100, 
+                    summaryGWASdataLDsave=FALSE, qqplotdatasave=FALSE, qqaxis=10,
+                    siblingrisk=FALSE,herit_liability=FALSE,sample_prevalence=NA,population_prevalence=NA)
 }
 \arguments{
   \item{\code{summarydata}}{summay-level GWAS data, containing 3 columns: 
