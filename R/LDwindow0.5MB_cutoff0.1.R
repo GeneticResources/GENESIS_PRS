@@ -2,7 +2,7 @@
 #'
 #' @format A matrix with 1070777 rows and 6 columns ("SNPname" , "Nstar", "TaggingSNPs","LD.score.correct", "CHR" ,"BP")
 #' @source \url{}
-#' @name LDwindow0.5MB_cuoff0.1
-#' @usage data("LDwindow0.5MB_cuoff0.1")
+#' @name LDwindow0.5MB_cutoff0.1
+#' @usage data("LDwindow0.5MB_cutoff0.1")
 NULL
 

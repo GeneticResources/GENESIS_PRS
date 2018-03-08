@@ -1,5 +1,3 @@
-LD_hm3_cutoff01
-LD_hm3_cutoff02
 error_iter1: SNP error
 error_iter10: SNP error
 error_iter100: SNP error
@@ -100,4 +98,17 @@ error_iter96: SNP error
 error_iter97: SNP error
 error_iter98: SNP error
 error_iter99: SNP error
+heightGWAS
+LDwindow0.5MB_cutoff0.05
+LDwindow0.5MB_cutoff0.1
+LDwindow0.5MB_cutoff0.2
+LDwindow1MB_cutoff0.05
+LDwindow1MB_cutoff0.1
+LDwindow1MB_cutoff0.2
+LDwindow2MB_cutoff0.05
+LDwindow2MB_cutoff0.1
+LDwindow2MB_cutoff0.2
 w_hm3.noMHC.snplist
+pairwiseLD
+TaggingSNPinx
+
