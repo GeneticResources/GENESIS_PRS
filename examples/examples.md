@@ -34,12 +34,7 @@ plot(x_seq, y_seq,type="l",ylim=c(0,250),xlab="Joint effect size", ylab="Probabi
 
 ### Make future projections with specified sample size n
 ```{r future projections}
-projection(est,n=253288)
-```
-
-### Predict number of discoveries in future GWAS and its confidence interval
-```{r future projections}
-fdis(est,v,n=253288)
+projection(est,v,n=253288)
 ```
 
 ### Calculate number of SNPs falling in an interval

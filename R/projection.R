@@ -24,7 +24,7 @@ projection <- function(est,v,n,gwsignificance=5e-8,tol=c(1e-12,1e-15),M=1070777,
   tem1 = apply(estmat, 1, function(t) {pp(t,n,gwsignificance,tol,M)})
   
   pest = tem$Numdicoveries;
-  gvest = tem(est,n,gwsignificance,tol,M)$GVpercentage;
+  gvest = tem$GVpercentage;
   
   re = unlist(lapply(tem1,function(t)t[1]))
   rere = apply(matrix(re,ncol=1),1,function(t) rbinom(1,size=M,prob=t/M))
