@@ -10,7 +10,7 @@
 #' @param filter logical; if TRUE, the input summary data will be filtered.
 #' @keywords 
 #' @export
-#' @examples numInterval(0.005,Inf,est=c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06))
+#' @examples postmarginal(est=c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06),c0=10,summarydata,fiter=F)
 
 postmarginal <- function(est, c0, summarydata, filter=F){
  

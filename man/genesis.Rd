@@ -7,7 +7,7 @@ GENetic Effect-Size distribution Inference from Summary-level data
 Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies. 
 }
 \usage{
-genesis(summarydata, filter=FALSE, modelcomponents=2, cores=10, LDcutoff=0.1,LDwindow=1,M=1070777,c0=10, BICgamma=0.5, print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA, qqplot=TRUE, qqplotCI=0.8, qqplotname="", nsim=100, summaryGWASdataLDsave=FALSE, qqplotdatasave=FALSE, qqaxis=10, siblingrisk=FALSE,herit_liability=FALSE,sample_prevalence=NA,population_prevalence=NA)
+genesis(summarydata, filter=FALSE, modelcomponents=2, cores=10, LDcutoff=0.1,LDwindow=1,M=1070777,c0=10, BICgamma=0.5, print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA, qqplot=TRUE, qqplotCI=0.8, qqplotname="", nsim=100, summaryGWASdataLDsave=FALSE, qqplotdatasave=FALSE, qqaxis=10, siblingrisk=FALSE,herit_liability=FALSE,sample_prevalence=NA,population_prevalence=NA,stratification=TRUE)
 }
 \arguments{
   \item{\code{summarydata}}{summay-level GWAS data, containing 3 columns: 
@@ -37,6 +37,7 @@ genesis(summarydata, filter=FALSE, modelcomponents=2, cores=10, LDcutoff=0.1,LDw
   \item{\code{herit_liability}}{logical; if TRUE, the heritability in log-odds-ratio scale will be transferred to liability scale.}
   \item{\code{sample_prevelance}}{sample prevelance for the disease trait.}
   \item{\code{population_prevelance}}{population prevelance for the disease trait.}
+  \ite{\code{stratification}}{logical; if TRUE, the population stratification effect is considered.}
 }
 \details{
 If filter==TRUE, the input summary data will be filtered by 3 steps: (i) If sample size varies from SNP to SNP, remove SNPs with an effective sample size less than 0.67 times the 90th percentile of sample size. (ii) Remove SNPs within the major histocompatibility complex (MHR) region; filter SNPs to Hapmap3 SNPs. (iii) Remove SNPs with extremely large effect sizes (chi^2 > 80).
@@ -54,10 +55,10 @@ Yan Zhang <yandorazhang@gmail.com>
 }
 \examples{
 data(heightGWAS)
-fit = genesis(df,modelcomponents=2, cores=2, LDcutoff=1, LDwindow=1, c0=10,startingpic=0.01)
+fit = genesis(heightGWAS,modelcomponents=2, cores=2, LDcutoff=0.1, LDwindow=1, c0=10,startingpic=0.01)
 fit$estimates
 
-fit3 = genesis(df,modelcomponents=3, cores=20, LDcutoff=1, LDwindow=1, c0=10,startingpic=0.01)
+fit3 = genesis(heightGWAS,modelcomponents=3, cores=20, LDcutoff=0.1, LDwindow=1, c0=10,startingpic=0.01)
 fit3$estimates
 }
 
