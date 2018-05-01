@@ -1,0 +1,3 @@
+load("/Users/dorazhang/Dropbox/2016_06_Gene_revision/code_final_realdata/GENESIS/data/heightGWAS.RData")
+ls()
+head(heightGWAS)

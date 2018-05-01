@@ -316,7 +316,7 @@ vec onestep_varcomponent(const vec varcomponent,  const mat & w, const vec &beta
 vec EM_func(const vec &par_start,
             const vec &betahat, const vec & varbetahat, const vec & ldscore,  const vec & Nstar, const int & M,
             int c0, const long double &eps1,const long double &eps2,const long double &eps3,const long double &eps, const int &Meps, const int &steps, const int &num_threads, const bool &print,
-            const int &printfreq)
+            const int &printfreq, const bool &stratification)
 {
   vec par(3), prev_par(3);
   par(0) = par_start(0);
@@ -351,8 +351,10 @@ vec EM_func(const vec &par_start,
 
     // M-step: update the variance parameters
     new_sig(0) = par(1); new_sig(1) = par(2);
+    if(stratification==false){new_sig(1)=0;}
     for(int j=0; j<steps; j++){
       old_sig = onestep_varcomponent(new_sig, w, betahat,varbetahat, ldscore, Nstar, num_threads);
+      if(stratification==false){old_sig(1)=0;}
       if((abs(old_sig(0)-new_sig(0))<1e-20) & (abs(old_sig(1)-new_sig(1))<1e-20)) break;
       new_sig(0) = old_sig(0); new_sig(1) = old_sig(1);
       if(new_sig(0) > 1) new_sig(0) = 1e-5;
@@ -874,7 +876,7 @@ vec onestep_varcomponent3(const vec &varcomponent, const mat & w, const vec &bet
 vec EM_func3(const vec &par_start, const vec & lower_pi, const vec & upper_pi,
              const vec &betahat, const vec & varbetahat, const vec & ldscore,  const vec & Nstar, const int & M,
              int c0,const long double &eps1,const long double &eps2,const long double &eps3,const long double &eps4,const long double &eps5,
-             const long double &eps, const int &Meps, const int &steps, const int &num_threads, const bool &print, const int &printfreq)
+             const long double &eps, const int &Meps, const int &steps, const int &num_threads, const bool &print, const int &printfreq, const bool &stratification)
 {
     vec par(5), prev_par(5);
     par(0) = par_start(0);
@@ -925,8 +927,10 @@ vec EM_func3(const vec &par_start, const vec & lower_pi, const vec & upper_pi,
         
         // update variance components
         tem_sig(0) = sig1; tem_sig(1) = sig2; tem_sig(2) = a;
+        if(stratification==false){tem_sig(2)=0;}
         for(int j=0; j<steps; j++){
             old = onestep_varcomponent3(tem_sig, w, betahat,varbetahat, ldscore, Nstar,num_threads);
+            if(stratification==false){old(2)=0;}
             if((abs(old(0)-tem_sig(0))<1e-20) & (abs(old(1)-tem_sig(1))<1e-20) & (abs(old(2)-tem_sig(2))<1e-20) ) break;
             tem_sig(0) = old(0); tem_sig(1) = old(1); tem_sig(2) = old(2);
         }

@@ -179,8 +179,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // EM_func
-vec EM_func(const vec& par_start, const vec& betahat, const vec& varbetahat, const vec& ldscore, const vec& Nstar, const int& M, int c0, const long double& eps1, const long double& eps2, const long double& eps3, const long double& eps, const int& Meps, const int& steps, const int& num_threads, const bool& print, const int& printfreq);
-RcppExport SEXP _GENESIS_EM_func(SEXP par_startSEXP, SEXP betahatSEXP, SEXP varbetahatSEXP, SEXP ldscoreSEXP, SEXP NstarSEXP, SEXP MSEXP, SEXP c0SEXP, SEXP eps1SEXP, SEXP eps2SEXP, SEXP eps3SEXP, SEXP epsSEXP, SEXP MepsSEXP, SEXP stepsSEXP, SEXP num_threadsSEXP, SEXP printSEXP, SEXP printfreqSEXP) {
+vec EM_func(const vec& par_start, const vec& betahat, const vec& varbetahat, const vec& ldscore, const vec& Nstar, const int& M, int c0, const long double& eps1, const long double& eps2, const long double& eps3, const long double& eps, const int& Meps, const int& steps, const int& num_threads, const bool& print, const int& printfreq, const bool& stratification);
+RcppExport SEXP _GENESIS_EM_func(SEXP par_startSEXP, SEXP betahatSEXP, SEXP varbetahatSEXP, SEXP ldscoreSEXP, SEXP NstarSEXP, SEXP MSEXP, SEXP c0SEXP, SEXP eps1SEXP, SEXP eps2SEXP, SEXP eps3SEXP, SEXP epsSEXP, SEXP MepsSEXP, SEXP stepsSEXP, SEXP num_threadsSEXP, SEXP printSEXP, SEXP printfreqSEXP, SEXP stratificationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -200,7 +200,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const int& >::type num_threads(num_threadsSEXP);
     Rcpp::traits::input_parameter< const bool& >::type print(printSEXP);
     Rcpp::traits::input_parameter< const int& >::type printfreq(printfreqSEXP);
-    rcpp_result_gen = Rcpp::wrap(EM_func(par_start, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps, Meps, steps, num_threads, print, printfreq));
+    Rcpp::traits::input_parameter< const bool& >::type stratification(stratificationSEXP);
+    rcpp_result_gen = Rcpp::wrap(EM_func(par_start, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps, Meps, steps, num_threads, print, printfreq, stratification));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -384,8 +385,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // EM_func3
-vec EM_func3(const vec& par_start, const vec& lower_pi, const vec& upper_pi, const vec& betahat, const vec& varbetahat, const vec& ldscore, const vec& Nstar, const int& M, int c0, const long double& eps1, const long double& eps2, const long double& eps3, const long double& eps4, const long double& eps5, const long double& eps, const int& Meps, const int& steps, const int& num_threads, const bool& print, const int& printfreq);
-RcppExport SEXP _GENESIS_EM_func3(SEXP par_startSEXP, SEXP lower_piSEXP, SEXP upper_piSEXP, SEXP betahatSEXP, SEXP varbetahatSEXP, SEXP ldscoreSEXP, SEXP NstarSEXP, SEXP MSEXP, SEXP c0SEXP, SEXP eps1SEXP, SEXP eps2SEXP, SEXP eps3SEXP, SEXP eps4SEXP, SEXP eps5SEXP, SEXP epsSEXP, SEXP MepsSEXP, SEXP stepsSEXP, SEXP num_threadsSEXP, SEXP printSEXP, SEXP printfreqSEXP) {
+vec EM_func3(const vec& par_start, const vec& lower_pi, const vec& upper_pi, const vec& betahat, const vec& varbetahat, const vec& ldscore, const vec& Nstar, const int& M, int c0, const long double& eps1, const long double& eps2, const long double& eps3, const long double& eps4, const long double& eps5, const long double& eps, const int& Meps, const int& steps, const int& num_threads, const bool& print, const int& printfreq, const bool& stratification);
+RcppExport SEXP _GENESIS_EM_func3(SEXP par_startSEXP, SEXP lower_piSEXP, SEXP upper_piSEXP, SEXP betahatSEXP, SEXP varbetahatSEXP, SEXP ldscoreSEXP, SEXP NstarSEXP, SEXP MSEXP, SEXP c0SEXP, SEXP eps1SEXP, SEXP eps2SEXP, SEXP eps3SEXP, SEXP eps4SEXP, SEXP eps5SEXP, SEXP epsSEXP, SEXP MepsSEXP, SEXP stepsSEXP, SEXP num_threadsSEXP, SEXP printSEXP, SEXP printfreqSEXP, SEXP stratificationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -409,7 +410,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const int& >::type num_threads(num_threadsSEXP);
     Rcpp::traits::input_parameter< const bool& >::type print(printSEXP);
     Rcpp::traits::input_parameter< const int& >::type printfreq(printfreqSEXP);
-    rcpp_result_gen = Rcpp::wrap(EM_func3(par_start, lower_pi, upper_pi, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps4, eps5, eps, Meps, steps, num_threads, print, printfreq));
+    Rcpp::traits::input_parameter< const bool& >::type stratification(stratificationSEXP);
+    rcpp_result_gen = Rcpp::wrap(EM_func3(par_start, lower_pi, upper_pi, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps4, eps5, eps, Meps, steps, num_threads, print, printfreq, stratification));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -524,7 +526,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GENESIS_weight_loglikelihood", (DL_FUNC) &_GENESIS_weight_loglikelihood, 7},
     {"_GENESIS_update_pi1", (DL_FUNC) &_GENESIS_update_pi1, 3},
     {"_GENESIS_onestep_varcomponent", (DL_FUNC) &_GENESIS_onestep_varcomponent, 7},
-    {"_GENESIS_EM_func", (DL_FUNC) &_GENESIS_EM_func, 16},
+    {"_GENESIS_EM_func", (DL_FUNC) &_GENESIS_EM_func, 17},
     {"_GENESIS_Sk", (DL_FUNC) &_GENESIS_Sk, 6},
     {"_GENESIS_Ik", (DL_FUNC) &_GENESIS_Ik, 6},
     {"_GENESIS_S", (DL_FUNC) &_GENESIS_S, 7},
@@ -536,7 +538,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_GENESIS_weight_loglikelihood3", (DL_FUNC) &_GENESIS_weight_loglikelihood3, 7},
     {"_GENESIS_update_p3", (DL_FUNC) &_GENESIS_update_p3, 3},
     {"_GENESIS_onestep_varcomponent3", (DL_FUNC) &_GENESIS_onestep_varcomponent3, 7},
-    {"_GENESIS_EM_func3", (DL_FUNC) &_GENESIS_EM_func3, 20},
+    {"_GENESIS_EM_func3", (DL_FUNC) &_GENESIS_EM_func3, 21},
     {"_GENESIS_Sk3", (DL_FUNC) &_GENESIS_Sk3, 6},
     {"_GENESIS_Ik3", (DL_FUNC) &_GENESIS_Ik3, 6},
     {"_GENESIS_S3", (DL_FUNC) &_GENESIS_S3, 6},

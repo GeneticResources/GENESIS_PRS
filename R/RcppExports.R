@@ -49,8 +49,8 @@ onestep_varcomponent <- function(varcomponent, w, betahat, varbetahat, ldscore, 
     .Call('_GENESIS_onestep_varcomponent', PACKAGE = 'GENESIS', varcomponent, w, betahat, varbetahat, ldscore, Nstar, num_threads)
 }
 
-EM_func <- function(par_start, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps, Meps, steps, num_threads, print, printfreq) {
-    .Call('_GENESIS_EM_func', PACKAGE = 'GENESIS', par_start, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps, Meps, steps, num_threads, print, printfreq)
+EM_func <- function(par_start, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps, Meps, steps, num_threads, print, printfreq, stratification) {
+    .Call('_GENESIS_EM_func', PACKAGE = 'GENESIS', par_start, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps, Meps, steps, num_threads, print, printfreq, stratification)
 }
 
 Sk <- function(par, betahatk, varbetahatk, ldscorek, c0, Nstark) {
@@ -97,8 +97,8 @@ onestep_varcomponent3 <- function(varcomponent, w, betahat, varbetahat, ldscore,
     .Call('_GENESIS_onestep_varcomponent3', PACKAGE = 'GENESIS', varcomponent, w, betahat, varbetahat, ldscore, Nstar, num_threads)
 }
 
-EM_func3 <- function(par_start, lower_pi, upper_pi, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps4, eps5, eps, Meps, steps, num_threads, print, printfreq) {
-    .Call('_GENESIS_EM_func3', PACKAGE = 'GENESIS', par_start, lower_pi, upper_pi, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps4, eps5, eps, Meps, steps, num_threads, print, printfreq)
+EM_func3 <- function(par_start, lower_pi, upper_pi, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps4, eps5, eps, Meps, steps, num_threads, print, printfreq, stratification) {
+    .Call('_GENESIS_EM_func3', PACKAGE = 'GENESIS', par_start, lower_pi, upper_pi, betahat, varbetahat, ldscore, Nstar, M, c0, eps1, eps2, eps3, eps4, eps5, eps, Meps, steps, num_threads, print, printfreq, stratification)
 }
 
 Sk3 <- function(par, betahatk, varbetahatk, ldscorek, c0, Nstark) {

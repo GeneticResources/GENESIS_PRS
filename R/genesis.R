@@ -29,6 +29,7 @@
 #' @param herit_liability logical; if TRUE, the heritability in log-odds-ratio scale will be transferred to liability scale.
 #' @param sample_prevalence sample prevalence for the disease trait.
 #' @param population_prevalence population prevalence for the disease trait. 
+#' @param stratification logical; if TRUE, the population stratification effect is considered. 
 #' @keywords 
 #' @export
 #' 
@@ -40,7 +41,7 @@ genesis <- function(summarydata, filter=FALSE,
                     c0=10, BICgamma=0.5, print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA, 
                     qqplot=TRUE, qqplotCI=0.8, qqplotname="", nsim=100, 
                     summaryGWASdataLDsave=FALSE, qqplotdatasave=FALSE, qqaxis=10,
-                    siblingrisk=FALSE,herit_liability=FALSE,sample_prevalence=NA,population_prevalence=NA){
+                    siblingrisk=FALSE,herit_liability=FALSE,sample_prevalence=NA,population_prevalence=NA,stratification=TRUE){
   
   #----------------------------------------------------#----------------------------------------------------
   # I. Check input data set
@@ -185,7 +186,7 @@ genesis <- function(summarydata, filter=FALSE,
         if(starting[2]<0){starting[2] <- 1e-5; starting[3] <- 2e-6}
       }
       
-      fit <- EM_func(starting, betahat,varbetahat,ldscore,Nstar,M, c0, max(tolerance_pic, 1e-6), max(tolerance_sigsq1,1e-7),max(tolerance_a,1e-7),max(tolerance_llk,1e-5),maxEM,steps,cores,print=F,printfreq)
+      fit <- EM_func(starting, betahat,varbetahat,ldscore,Nstar,M, c0, max(tolerance_pic, 1e-6), max(tolerance_sigsq1,1e-7),max(tolerance_a,1e-7),max(tolerance_llk,1e-5),maxEM,steps,cores,print=F,printfreq,stratification)
       est <- fit[3:5];
       
       starting <- rep(0,5)
@@ -204,7 +205,7 @@ genesis <- function(summarydata, filter=FALSE,
   if(modelcomponents == 2){
     
     time0 <- proc.time()[3]
-    fit <- EM_func(starting, betahat,varbetahat,ldscore,Nstar,M, c0, tolerance_pic, tolerance_sigsq1,tolerance_a,tolerance_llk,maxEM,steps,cores,print,printfreq)
+    fit <- EM_func(starting, betahat,varbetahat,ldscore,Nstar,M, c0, tolerance_pic, tolerance_sigsq1,tolerance_a,tolerance_llk,maxEM,steps,cores,print,printfreq,stratification)
     est <- fit[3:5]; c0 = fit[7]
     runhour <- (proc.time()[3] - time0)/3600
     
@@ -417,7 +418,7 @@ genesis <- function(summarydata, filter=FALSE,
     # run 3-component model. 
     #----------------------------------------------------
     time0 <- proc.time()[3]
-    fit <- EM_func3(starting,lower_pi=c(1e-7,1e-7),upper_pi=c(0.5,0.5),betahat,varbetahat,ldscore,Nstar,M,c0,tolerance_pic,tolerance_p1,tolerance_sigsq1,tolerance_sigsq2,tolerance_a,tolerance_llk,maxEM,steps,cores,print,printfreq)
+    fit <- EM_func3(starting,lower_pi=c(1e-7,1e-7),upper_pi=c(0.5,0.5),betahat,varbetahat,ldscore,Nstar,M,c0,tolerance_pic,tolerance_p1,tolerance_sigsq1,tolerance_sigsq2,tolerance_a,tolerance_llk,maxEM,steps,cores,print,printfreq,stratification)
     est <- fit[3:7]; c0 = fit[9]
     runhour <- (proc.time()[3] - time0)/3600
     llk = fit[2]
