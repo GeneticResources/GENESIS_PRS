@@ -37,7 +37,8 @@ postmarginal <- function(est, c0, summarydata, filter=F){
   #----------------------------------------------------#----------------------------------------------------
   # II. merge the summary GWAS data with the LD score data, and extract the variables needed for analysis.
   #----------------------------------------------------#----------------------------------------------------
-  
+    data(list=paste0("LDwindow",LDwindow,"MB_cutoff",LDcutoff)) ###
+
   summarydata$SNP <- as.character(summarydata$SNP)
   summarydata$Z <- as.numeric(as.character(summarydata$Z))
   summarydata$N <- as.numeric(as.character(summarydata$N))
