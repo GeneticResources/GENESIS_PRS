@@ -12,7 +12,7 @@
 #' @export
 #' @examples postmarginal(est=c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06),c0=10,summarydata,fiter=F)
 
-postmarginal <- function(est, c0, summarydata, filter=F){
+postmarginal <- function(est, c0, summarydata, filter=F,LDcutoff=0.1,LDwindow=1,M=1070777){
  
   #----------------------------------------------------#----------------------------------------------------
   # I. preliminary summary GWAS data filtering. 
@@ -37,7 +37,8 @@ postmarginal <- function(est, c0, summarydata, filter=F){
   #----------------------------------------------------#----------------------------------------------------
   # II. merge the summary GWAS data with the LD score data, and extract the variables needed for analysis.
   #----------------------------------------------------#----------------------------------------------------
-  
+    data(list=paste0("LDwindow",LDwindow,"MB_cutoff",LDcutoff)) ###
+
   summarydata$SNP <- as.character(summarydata$SNP)
   summarydata$Z <- as.numeric(as.character(summarydata$Z))
   summarydata$N <- as.numeric(as.character(summarydata$N))
