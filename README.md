@@ -38,6 +38,7 @@ Zhang, Yan, et al. "Estimation of complex effect-size distributions using summar
 
 
 ## Contact the Author
-Author: Yan Zhang, Guanghao Qi, Ju-Hyun Park, Nilanjan Chatterjee ()
-
 Software Developer: Yan Zhang (yzhan284@jhu.edu)
+
+Author: Yan Zhang, Guanghao Qi, Ju-Hyun Park, Nilanjan Chatterjee (nchatte2@jhu.edu)
+
