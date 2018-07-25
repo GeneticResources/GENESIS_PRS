@@ -18,8 +18,8 @@ devtools::install_github("yandorazhang/GENESIS")
 The input GWAS summary statistics should contain 3 columns: 
 
 1. SNP rsID, 
-2. uncorrected z-statistics, 
-3. GWAS sample size, which can be different for different SNPs; for disease traits, the sample size should be effective sample size, i.e., (# of cases)*(# of controls)/(total # of cases & controls).
+2. original z-statistics got from GWAS study (uncorrected by genomic control factor), 
+3. effective sample size of GWAS study, which can vary for different SNPs; for disease traits, the sample size should be effective sample size, i.e., (# of cases)*(# of controls)/(total # of cases & controls).
 
 The input GWAS summary statistics are strongly recommended to do filtering before fitting to the model: 
 
@@ -34,10 +34,10 @@ The input GWAS summary statistics are strongly recommended to do filtering befor
 
 Please cite the following paper when you use GENESIS:
 
-Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits and implications for the future." bioRxiv (2017): 175406.
+Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits and implications for the future." bioRxiv (2017): 175406. 
 
 
 ## Contact the Author
-Author: Yan Zhang, Nilanjan Chatterjee
+Author: Yan Zhang, Guanghao Qi, Ju-Hyun Park, Nilanjan Chatterjee ()
 
-Maintainer: Yan Zhang (yandorazhang@gmail.com / yzhan284@jhu.edu)
+Software Developer: Yan Zhang (yzhan284@jhu.edu)
