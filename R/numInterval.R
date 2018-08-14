@@ -1,13 +1,13 @@
 #' Illustration of numInterval()
 #'
-#' This function allows to calculate the number of SNPs with effect size falling into some interval according to the fitted mixture model.
+#' This function allows to calculate the number of SNPs with the absolute value of effect size falling into some interval according to the fitted mixture model.
 #' @param lower the lower bound of the interval.
 #' @param upper the upper bound of the interval.
 #' @param est parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).
 #' @param M total number of SNPs in the reference panel; by default, it is the total number of common SNPs in Hapmap3 reference panel, which is equal to 1070777. 
 #' @keywords 
 #' @export
-#' @examples numInterval(0.005,Inf,est=c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06))
+#' @examples numInterval(0.005,Inf,est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06))
 
 numInterval <- function(lower,upper,est,M=1070777){
   
@@ -38,6 +38,6 @@ numInterval <- function(lower,upper,est,M=1070777){
     }
   }
   
-  return(M*(cdf(upper) - cdf(lower)))
+  return(M*2*(cdf(upper) - cdf(lower)))
   
 }

@@ -1,15 +1,15 @@
-#' Illustration of fgc()
+#' Illustration of futuregc()
 #'
 #' This function allows to predict future genomic control (GC) factor through simulations. 
 #' @param est parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).
 #' @param n specifided future GWAS sample size.
-#' @param nsim total number of simulations; by default, it is 100. 
+#' @param nsim total number of simulations; by default, it is 1. 
 #' @param M total number of SNPs in the reference panel; by default, it is the total number of common SNPs in Hapmap3 reference panel, which is equal to 1070777. 
 #' @keywords 
 #' @export
-#' @examples fgc(est=c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06), n=253288,nsim=1)
+#' @examples futuregc(est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06), n=253288,nsim=1)
 
-fgc <- function(est,n,nsim=100,M=1070777){
+futuregc <- function(est,n,nsim=1,M=1070777){
   
   lambdaGC = rep(0,nsim)
   

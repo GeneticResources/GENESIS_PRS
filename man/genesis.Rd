@@ -48,7 +48,7 @@ If filter==TRUE, the input summary data will be filtered by 3 steps: (i) If samp
 \item{\code{qqplotdatasave}}{the dataframe containing the simulated dataset to generate the QQ plot, i.e., the log10th of the observed p-values and expected p-values by the fitted model.}
 }
 \references{
-Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits and implications for the future." bioRxiv (2017): 175406.
+Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits" Nature Genetics (2018).
 }
 \author{
 Yan Zhang <yandorazhang@gmail.com>

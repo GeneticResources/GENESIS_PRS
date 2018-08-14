@@ -1,10 +1,10 @@
 \name{numInterval}
 \alias{numInterval}
 \title{
-Function to Calculate Number of SNPs with Effect Size in An Interval
+Function to Calculate Number of SNPs with Effect Size Absolute Value Falling in an Interval
 }
 \description{
-This function calculates the number of SNPs with effect size falling into some interval according to the fitted mixture model.}
+This function calculates the number of SNPs with the absolute value of effect size falling into some interval according to the fitted mixture model.}
 \usage{
 numInterval(lower,upper,est,M=1070777)
 }
@@ -21,6 +21,5 @@ The number of SNPs with effect size falling into some interval (lower, upper) ac
 Yan Zhang <yandorazhang@gmail.com>
 }
 \examples{
-numInterval(0.005,Inf,est=c(5.119735e-03,5.533230e-05,1.794370e-06))
-numInterval(0.005,Inf,est=c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06)
+numInterval(0.005,Inf,est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06)
 }

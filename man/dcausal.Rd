@@ -20,7 +20,7 @@ This function allows to get the (mixture) normal probability density function fo
 The density.
 }
 \references{
-Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits and implications for the future." bioRxiv (2017): 175406.
+Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits" Nature Genetics (2018).
 }
 \author{
 Yan Zhang <yandorazhang@gmail.com>

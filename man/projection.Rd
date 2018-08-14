@@ -7,7 +7,7 @@ Future Projection Function
 Function to make future projections about the number of expected discoveries and associated heritability explained in future studies based on analytic formulas according to the fitted model. 
 }
 \usage{
-projection(est,v,n,gwsignificance=5e-8,tol=c(1e-12,1e-15),M=1070777,nsim=10000,alpha=0.025)
+projection(est,v=NULL,n,gwsignificance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=FALSE,nsim=10000,CI.coverage=0.95)
 }
 \arguments{
   \item{\code{est}}{parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).}
@@ -16,22 +16,24 @@ projection(est,v,n,gwsignificance=5e-8,tol=c(1e-12,1e-15),M=1070777,nsim=10000,a
   \item{\code{gwsignificance}}{genome-wide significance level, by default it is 5e-8.}
   \item{\code{tol}}{tolerance accuracy vector for intgrate() function. By default, it is c(1e-12,1e-15).}
   \item{\code{M}}{total number of SNPs in the reference panel. By default, it is the total number of common SNPs in Hapmap3 reference panel, which is equal to 1070777. }
-  \item{\code{nsim}}{total number of simulations; by default, it is 10000.}
-  \item{\code{alpha}}{significance level of the confidence interval; by default, it is 0.025, i.e., 95\% CI.}
+\item{\code{CI}}{logic variable, whether to calculate CI or not; by default, CI=FALSE.}
+  \item{\code{nsim}}{the total number of bootstrap samplers in order to calculate CI; by default, it is 10000.}
+  \item{\code{CI.coverage}}{coverage level of confidence interval; by default, it is 0.95, i.e., 95% CI.}
 }
 \details{}
 \value{
 A list of future projections with components
-\item{\code{Numdicoveries}}{predictions of future number of significant discoveries as well as its CI.}
-\item{\code{GVpercentage}}{predictions of percentage of genetic variance explained in future GWAS as well as its CI.}
-}
+\item{\code{heritability}{total heritability. }
+\item{\code{Numdicoveries}}{predicted number of significant  discoveries  at GWAS significance level "gwsignificance" in  future GWAS study with sample size n. }
+\item{\code{pheno.variance}}{predicted phenotypic variance that can be explained by those discovered significant SNPs  at GWAS significance level "gwsignificance"  in  future GWAS study with sample size n.}
+\item{\code{GVpercentage}}{predicted percentage  of genetic variance that can be explained  by those discovered significant SNPs  at GWAS significance level "gwsignificance"  in  future GWAS study with sample size n, i.e., GVpercentage = pheno.variance/heritability*100 }
 \references{
-Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits and implications for the future." bioRxiv (2017): 175406.
+Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits" Nature Genetics (2018).
 }
 \author{
 Yan Zhang <yandorazhang@gmail.com>
 }
 \examples{
-projection(est=c(5.119735e-03,5.533230e-05,1.794370e-06),v, M=1070777, n=253288);
-projection(est=c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06),v, n=253288);
+v = matrix(c(1.327856e-06, -1.131049e-05, 6.912489e-10, -2.901301e-09, -9.388865e-11, -8.568269e-06, 3.380985e-04, -1.543479e-07, 1.771036e-09,8.989668e-10, -1.846216e-09, -1.353542e-07,  1.517545e-10,  1.166563e-11, 1.901686e-14, -3.068113e-09, 9.520417e-09,  5.633801e-12, 9.427492e-12, 1.220433e-13, -9.111521e-11, 1.063848e-09, -1.526281e-13, 1.042123e-13, 1.406410e-14), 5,5)
+projection(est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06),v, n=253288, CI=T);
 }
