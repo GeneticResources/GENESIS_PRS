@@ -1,4 +1,4 @@
-#' Illustration of dcausal()
+#' Illustration of esd.sSNP()
 #'
 #' This function allows to get the (mixture) normal probability density function for the causal SNPs.
 #' @param x 
@@ -7,7 +7,7 @@
 #' @export
 #' @examples dcausal(x,est=c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06))
 
-dcausal <- function(x,est){
+esd.sSNP <- function(x,est){
   
   if(length(est)==5){
     pic = est[1]
