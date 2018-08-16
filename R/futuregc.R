@@ -5,11 +5,12 @@
 #' @param n specifided future GWAS sample size.
 #' @param nsim total number of simulations; by default, it is 1. 
 #' @param M total number of SNPs in the reference panel; by default, it is the total number of common SNPs in Hapmap3 reference panel, which is equal to 1070777. 
+#' @param seeds numeric random seeds used in simulation; by default, it is 123. 
 #' @keywords 
 #' @export
 #' @examples futuregc(est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06), n=253288,nsim=1)
 
-futuregc <- function(est,n,nsim=1,M=1070777){
+futuregc <- function(est,n,nsim=1,M=1070777,seeds=123){
   
   lambdaGC = rep(0,nsim)
   
@@ -25,7 +26,7 @@ futuregc <- function(est,n,nsim=1,M=1070777){
     
     for(iter in 1:nsim){
       # generate the joint effect size according to the fitted distribution
-      set.seed(iter*123)
+      set.seed(iter*seeds)
       z = rbinom(K, size=1, prob=pic); nonzero = sum(z)
       betajoint = rep(0, K)
       betajoint[which(z==1)] = rnorm(nonzero,mean=0,sd=sqrt(sigmasq))

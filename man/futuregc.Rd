@@ -1,7 +1,7 @@
 \name{futuregc}
 \alias{futuregc}
 \title{
-Future GC Factor Prediction Function
+Function to Predict Future GC Factor
 }
 \description{
 Function to predict future genomic control (GC) factor through simulations.
