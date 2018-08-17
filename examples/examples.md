@@ -9,6 +9,7 @@ library(GENESIS)
 data(heightGWAS)
 ```
 
+
 ## Fit the 2-component model
 ### Fitting to the model
 

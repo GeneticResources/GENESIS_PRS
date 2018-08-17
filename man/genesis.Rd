@@ -58,7 +58,7 @@ A list containing:
 (ii) observedlambda, lambda genomic control (GC) factor for observed summary GWAS statistics.
 (iii) meanEXPlambda,  expected lambda GC factor for simulated summary GWAS statistics under the fitted model.
 (iv) lowEXPlambda, "qqplotCI.coverage" CI lower bound of lambda GC factor for simulated summary GWAS statistics under the fitted model. 
-(v) highEXPlambda, "qqplotCI.coverage" CI upper bound of lambda GC factor for simulated summary GWAS statistics under the fitted model.
+(v) highEXPlambda, "qqplotCI.coverage" CI upper bound of lambda GC factor for simulated summary GWAS statistics under the fitted model.}
 }
 \references{
 Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits" Nature Genetics (2018).

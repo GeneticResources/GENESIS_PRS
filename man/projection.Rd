@@ -18,7 +18,7 @@ projection(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=F
   \item{\code{M}}{total number of SNPs in the reference panel. By default, it is the total number of common SNPs in Hapmap3 reference panel, which is equal to 1070777. }
 \item{\code{CI}}{logic variable, whether to calculate confidence interval or not; by default, CI=FALSE.}
   \item{\code{nsim}}{the total number of bootstrap samplers in order to calculate CI; by default, it is 1000.}
-  \item{\code{CI.coverage}}{coverage level of confidence interval; by default, it is 0.95, i.e., 95% CI.}
+  \item{\code{CI.coverage}}{coverage level of confidence interval; by default, it is 0.95, i.e., 95\% CI.}
 }
 \details{
 This function allows to make future projections about the number of expected discoveries and associated heritability explained in future studies based on analytic formulas according to the fitted model.  (corresponding with Fig. 3  in Zhang et. al 2018)

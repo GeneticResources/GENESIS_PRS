@@ -16,7 +16,7 @@ numInterval(lower,upper,est,M=1070777)
   \item{\code{M}}{total number of SNPs in the reference panel. By default, it is the total number of common SNPs in Hapmap3 reference panel, which is equal to 1070777. }
 }
 \details{
-This function calculates the number of SNPs with the absolute value of effect size falling into some interval according to the fitted mixture model. (corresponding with Supplementary Table 7 in Zhang et al 2018)
+This function calculates the number of SNPs with the absolute value of effect size falling into some interval according to the fitted mixture model. (corresponding with Supplementary Table 7 in Zhang et. al 2018)
 }
 \value{
 The number of SNPs with effect size falling into some interval (lower, upper) according to the fitted mixture model.

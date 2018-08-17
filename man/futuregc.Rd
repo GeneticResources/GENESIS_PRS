@@ -17,7 +17,7 @@ futuregc(est,n,nsim=1,M=1070777,seeds=123)
   \item{\code{seeds}}{numeric; random seeds used in simulation. By default, it is 123.}
 }
 \details{
-This function allows to predict future genomic control (GC) factor through simulations. It will first generate joint effect size according to the fitted model; then get the marginal effect size by the LD structure across SNPs; then errors following a multivariate normal with mean zero and variance of the LD correlation matrix are added to get the estimates of the marginal effect sizes. The predicted GC factor is then calculated based on the simulated estimates of marginal effect sizes. (corresponding with Supplementary Table 9 in Zhang et al 2018)
+This function allows to predict future genomic control (GC) factor through simulations. It will first generate joint effect size according to the fitted model; then get the marginal effect size by the LD structure across SNPs; then errors following a multivariate normal with mean zero and variance of the LD correlation matrix are added to get the estimates of the marginal effect sizes. The predicted GC factor is then calculated based on the simulated estimates of marginal effect sizes. (corresponding with Supplementary Table 9 in Zhang et. al 2018)
 }
 \value{
 Predicted genomic control factor.

@@ -11,14 +11,13 @@ polyriskpredict(N, Ps, Sig2s, M=200000, M1, type="optimum", alp.GWAS=5*10^(-8), 
 }
 \arguments{
 \item{\code{N}}{sample size, at which the predictive performance is calculated. It must be a scalar.}
-\item{\code{Ps}} {a vector of two mixture weights in the effect-size distribution for susceptibility SNPs. The sum should be equal to one.}
+\item{\code{Ps}}{a vector of two mixture weights in the effect-size distribution for susceptibility SNPs. The sum should be equal to one.}
 \item{\code{Sig2s}}{a vector of two component-specific variances for susceptibility SNPs. In a case where the one-component normal distribution is assumed for the effect-size distribution, then the two elements of the vector should be set to the same value.}
 \item{\code{M}}{the number of independent set of susceptibility SNPs with the default of 200000.}
 \item{\code{M1}}{the estimated number of susceptibility SNPs.}
-\item{\code{type}} which threshold should be applied. Either "optimum" (default) or "GWAS" can be chosen.
+\item{\code{type}}{which threshold should be applied. Either "optimum" (default) or "GWAS" can be chosen.}
 \item{\code{alp.GWAS}}{the (scalar) genome-wide significance level, if type=="GWAS". The default value is 5*10^(-8).}
-\item{\code{k.fold}}{a vector of multiplicative constants, at which or higher risk then the average population risk,
-proportions of population and cases are calculated. The default value is set at 3:5.}
+\item{\code{k.fold}}{a vector of multiplicative constants, at which or higher risk then the average population risk, proportions of population and cases are calculated. The default value is set at 3:5.}
 }
 \details{
 This function allows to make polygenic risk prediction at given sample size with SNPs included at optimum p-value threshold or genome-wide significance level (5e-8). (corresponding with Fig. 4 in Zhang et. al 2018)

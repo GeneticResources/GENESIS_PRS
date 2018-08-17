@@ -20,7 +20,7 @@ postmarginal(summarydata, est, c0=10, LDcutoff=0.1, LDwindow=1, filter=FALSE)
   \item{\code{filter}}{logical; if TRUE, the input summary data will be filtered.}
 }
 \details{
-This function computes the posterior probability for each GWAS maker to have  a zro marginal effect, as well as the best prediction of marginal effect size given the GWAS summary-level statistics and the fitted effect size distribution. See Supplementary Note Section 4  in  Zhang et al 2018. 
+This function computes the posterior probability for each GWAS maker to have  a zro marginal effect, as well as the best prediction of marginal effect size given the GWAS summary-level statistics and the fitted effect size distribution. See Supplementary Note Section 4  in  Zhang et. al 2018.
 }
 \value{
 A list of future postmarginals with components: 
