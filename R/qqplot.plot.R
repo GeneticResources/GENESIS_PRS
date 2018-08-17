@@ -11,10 +11,10 @@
 qqplot.plot <- function(qqplotdata,seq_inx=1,qqplot.axis=10){
   
   QQdata = data.frame(qqplotdata$QQdata)
-  obs_lambda = fit$qqplotdata$observedlambda
-  m.lambda = fit$qqplotdata$meanEXPlambda
-  l.lambda = fit$qqplotdata$lowEXPlambda
-  h.lambda = fit$qqplotdata$highEXPlambda
+  obs_lambda = qqplotdata$observedlambda
+  m.lambda = qqplotdata$meanEXPlambda
+  l.lambda = qqplotdata$lowEXPlambda
+  h.lambda = qqplotdata$highEXPlambda
   
   inx <- seq(1,nrow(QQdata),seq_inx)
   QQdata <- QQdata[inx,]
