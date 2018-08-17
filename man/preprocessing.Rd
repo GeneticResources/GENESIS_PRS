@@ -22,5 +22,6 @@ The number of SNPs with effect size falling into some interval (lower, upper) ac
 Yan Zhang <yandorazhang@gmail.com>
 }
 \examples{
-preprocessing(0.005,Inf,est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06))
+data(heightGWAS)
+df = preprocessing(heightGWAS,filter=FALSE)
 }

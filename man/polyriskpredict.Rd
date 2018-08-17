@@ -1,7 +1,7 @@
 \name{polyriskpredict}
 \alias{polyriskpredict}
 \title{
-
+Polygenic Risk Prediction Function
 }
 \description{
 This function allows to get parameter estimates from fitting the mixture model.
