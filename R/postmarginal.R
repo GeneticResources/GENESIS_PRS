@@ -13,10 +13,10 @@
 #' @param filter logical; if TRUE, the input summary data will be filtered.
 #' @keywords 
 #' @export
-#' @examples postmarginal(summarydata, est, c0＝10, LDcutoff=0.1, LDwindow=1, filter=F)
-
-postmarginal <- function(summarydata, est, c0＝10, LDcutoff=0.1, LDwindow=1, filter=F){
- 
+#' @examples postmarginal(summarydata,est, c0=10, LDcutoff=0.1, LDwindow=1, filter=F)
+#' 
+postmarginal <- function(summarydata, est, c0=10, LDcutoff=0.1, LDwindow=1, filter=F){
+  
   #----------------------------------------------------
   # I. summary GWAS data format check
   #----------------------------------------------------
