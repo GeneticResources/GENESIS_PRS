@@ -22,20 +22,21 @@ fit2$estimates
 est <- fit2$estimates$`parameter (pic, sigmasq, a) estimates` # the model parameter estimates
 v <- fit2$estimates$`Covariance matrix of parameter estimates` # the covariance matrix of model parameter estimtaes
 
-# est <- c(5.119735e-03, 5.533230e-05, 1.794370e-06)
-# v <- matrix(c(3.415864e-07, -2.695963e-09, -6.943308e-11, -2.695963e-09,  2.576368e-11,  5.008517e-13, -6.943308e-11,  5.008517e-13,  1.881822e-14),3,3)
+# the est and v should have below values
+est <- c(4.906797e-03, 5.733005e-05, 1.861491e-06)
+v <- matrix(c(2.870170e-07, -2.426575e-09, -6.077209e-11, -2.426575e-09,  2.491765e-11,  4.715283e-13, -6.077209e-11, 4.715283e-13,  1.720162e-14),3,3)
 ```
 
 ### Get the density plot for the susceptibility SNPs 
 ```{r density plot}
 x_seq <- seq(-0.02,0.02,length.out = 1000); 
-y_seq <- apply(matrix(x_seq,ncol=1),1,function(t) dcausal(t,est))
-plot(x_seq, y_seq,type="l",ylim=c(0,250),xlab="Joint effect size", ylab="Probability Density")
+y_seq <- apply(matrix(x_seq,ncol=1),1,function(t) dmixssnp(t,est))
+plot(x_seq, y_seq,type="l",xlab="Joint effect size", ylab="Probability Density")
 ```
 
 ### Make future projections with specified sample size n
 ```{r future projections}
-projection(est,v,n=253288,nsim=1000)
+projection(est,v,n=253288, CI=TRUE)
 ```
 
 ### Calculate number of SNPs falling in an interval

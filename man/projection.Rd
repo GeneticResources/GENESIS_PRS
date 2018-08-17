@@ -25,7 +25,7 @@ This function allows to make future projections about the number of expected dis
 }
 \value{
 A list of future projections with components
-\item{\code{heritability}{total heritability.}
+\item{\code{heritability}}{total heritability.}
 \item{\code{Numdicoveries}}{predicted number of significant  discoveries  at GWAS significance level "gwas.significance" in  future GWAS study with sample size n. }
 \item{\code{pheno.variance}}{predicted phenotypic variance that can be explained by those discovered significant SNPs  at GWAS significance level "gwas.significance"  in  future GWAS study with sample size n.}
 \item{\code{GVpercentage}}{predicted percentage  of genetic variance that can be explained  by those discovered significant SNPs  at GWAS significance level "gwas.significance"  in  future GWAS study with sample size n, i.e., GVpercentage = pheno.variance/heritability*100 }
