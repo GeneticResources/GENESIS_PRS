@@ -4,11 +4,11 @@
 \title{Example GWAS Summary Data for Height (2010)
 }
 \description{
-The dataset contains GWAS summary data of GIANT_HEIGHT_LangoAllen2010_publicrelease_HapMapCeuFreq.txt after quality control, containing 941389 rows and 3 columns. Each row represent a SNP. 
+The dataset contains GWAS summary data of GIANT_HEIGHT_LangoAllen2010_publicrelease_HapMapCeuFreq.txt after quality control, containing 1037172 rows and 3 columns. Each row represent a SNP. 
 }
 \usage{data("heightGWAS")}
 \format{
-   A matrix with 941389 rows and 3 columns (MarkerName, z, N)
+   A matrix with 1037172 rows and 3 columns (MarkerName, z, N)
     \describe{
     \item{\code{MarkerName}}{SNP rsID}
     \item{\code{z}}{GWAS z-statistic}

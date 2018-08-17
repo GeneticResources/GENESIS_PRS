@@ -8,28 +8,28 @@
 #' @param filter logical; if TRUE, the input summary data will be filtered.
 #' @param modelcomponents 2 or 3, indicating fitting 2-component or 3-component model.
 #' @param cores number of CPU threads in parallel computing.
-#' @param LDcutoff a number from (0.05, 0.1, 0.2); indicating LD score is calculated based on the particular cutoff. By default, it is 0.1.
+#' @param LDcutoff a number from (0.05, 0.1, 0.2); indicating LD score is calculated based on the particular r^2 cutoff. By default, it is 0.1.
 #' @param LDwindow a number from (0.5, 1, 2); indicating LD score is calculated based on the particular window size (MB). By default, it is 1 MB.
-#' @param M the total number of SNPs in the reference panel used when calculating LD score; by default, it is 1070777.
+#' @param M total number of SNPs in the reference panel; by default, it is the total number of common SNPs in Hapmap3 reference panel, i.e., 1070777.
 #' @param c0 an assumed maximum number of underlying susceptibility SNPs tagged by any individual GWAS marker. By default, c0 is set at 10.
-#' @param BIC.gamma a tuning parameter in calculating BIC in (0,1). By default, BIC.gamma is set at 0.5.
-#' @param print logical; if TRUE, the EM algorithm details will be output.
-#' @param printfreq  number indicating every printfreq steps, the EM results will be output.
-#' @param starting the starting values for the model. For 2-component model, the starting value of (pic, sigmasq, a); for 3-component model, (pic, p1, sigmasq1, sigmasq2, a). 
+#' @param BIC.gamma a tuning parameter in calculating BIC with a range of (0,1). By default, BIC.gamma is set at 0.5.
+#' @param print logical; if TRUE, the EM algorithm iteration details will be output.
+#' @param printfreq  a number indicating every "printfreq" iterations of EM algorithms,  results will be output.
+#' @param starting the starting values for the model. For 2-component model, the starting value of (pic, sigmasq, a); for 3-component model, (pic, p1, sigmasq1, sigmasq2, a).
 #' @param staringpic the starting value for pic when staring==NA. 
 #' @param tolerance the accuracy of the tolerance. For 2-component model, it is a 6-dim vector with tolerance value for (pic,sigmasq,a,llk,maxEM,steps). For 3-component model, it is a 8-dim vector with tolerance value for (pic,p1,sigmasq1,sigmasq2,a,llk,maxEM,steps).
-#' @param qqplot logical; if TRUE, the QQ plot will be ploted.
-#' @param qqplotCI.coverage the threshold of confidence interval in the QQ plot.
+#' @param qqplot logical; if TRUE, the QQ plot will be ploted into a pdf file.
+#' @param qqplotCI.coverage the coverage rate of confidence band in the QQ plot. By default, it is 0.8.
 #' @param qqplot.name the name of the QQ plot pdf files. 
-#' @param qqplot.axis numeric; the x- and y-axis limits is from 0 to qqplot.axis for the QQ plot. By default, it is 10. 
-#' @param qqplot.nsim the total number of simulations based on which the QQ plot is obtained. 
-#' @param summaryGWASdata.save logical; if TRUE, the summary GWAS data as well as the LD information will be saved.
-#' @param qqplotdata.save logical; if TRUE, the simulated data to generate the QQ plot will be saved.
+#' @param qqplot.axis numeric; the x- and y-axis limits is set from 0 to "qqplot.axis" in the QQ plot. By default, it is 10.
+#' @param qqplot.nsim the total number of simulations to generate the expected p-values to get the QQ plot. By default, it is 100.
+#' @param summaryGWASdata.save logical; if TRUE, the filtered summary GWAS data after merged with the LD information will be saved as a dataframe.
+#' @param qqplotdata.save logical; if TRUE, the simulated data  to generate the QQ plot will be saved.
 #' @param herit.liability logical; if TRUE, the heritability in log-odds-ratio scale will be transferred to liability scale.
 #' @param sample.prevalence sample prevalence for the disease trait.
 #' @param population.prevalence population prevalence for the disease trait. 
 #' @param stratification logical; if TRUE, the population stratification effect is considered. 
-#' @param seeds numeric random seeds used in simulation; by default, it is 123. 
+#' @param seeds numeric; random seeds used in simulation; by default, it is 123.
 #' @keywords 
 #' @export
 #' 

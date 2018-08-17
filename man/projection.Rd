@@ -16,17 +16,20 @@ projection(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=F
   \item{\code{gwas.significance}}{genome-wide significance level, by default it is 5e-8.}
   \item{\code{tol}}{tolerance accuracy vector for intgrate() function. By default, it is c(1e-12,1e-15).}
   \item{\code{M}}{total number of SNPs in the reference panel. By default, it is the total number of common SNPs in Hapmap3 reference panel, which is equal to 1070777. }
-\item{\code{CI}}{logic variable, whether to calculate CI or not; by default, CI=FALSE.}
+\item{\code{CI}}{logic variable, whether to calculate confidence interval or not; by default, CI=FALSE.}
   \item{\code{nsim}}{the total number of bootstrap samplers in order to calculate CI; by default, it is 1000.}
   \item{\code{CI.coverage}}{coverage level of confidence interval; by default, it is 0.95, i.e., 95% CI.}
 }
-\details{}
+\details{
+This function allows to make future projections about the number of expected discoveries and associated heritability explained in future studies based on analytic formulas according to the fitted model.  (corresponding with Fig. 3  in Zhang et. al 2018)
+}
 \value{
 A list of future projections with components
-\item{\code{heritability}{total heritability. }
+\item{\code{heritability}{total heritability.}
 \item{\code{Numdicoveries}}{predicted number of significant  discoveries  at GWAS significance level "gwas.significance" in  future GWAS study with sample size n. }
 \item{\code{pheno.variance}}{predicted phenotypic variance that can be explained by those discovered significant SNPs  at GWAS significance level "gwas.significance"  in  future GWAS study with sample size n.}
 \item{\code{GVpercentage}}{predicted percentage  of genetic variance that can be explained  by those discovered significant SNPs  at GWAS significance level "gwas.significance"  in  future GWAS study with sample size n, i.e., GVpercentage = pheno.variance/heritability*100 }
+}
 \references{
 Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits" Nature Genetics (2018).
 }

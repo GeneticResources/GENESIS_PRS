@@ -2,8 +2,8 @@
 #'
 #' This function generate the qqplot by plotting expected p-values under the fitted model through simulations against the observed p-values. 
 #' @param qqplotdata The QQ plot object got from qqplotdata.simu() function.
-#' @param seq_inx The QQ data to get the QQ plot will be thinned every seq_inx. 
-#' @param qqplot.axis Numeric; the x- and y-axis limits is from 0 to qqaxis for the QQ plot. By default, it is 1. 
+#' @param seq_inx numeric; QQdata will be thinned every seq_inx. 
+#' @param qqplot.axis numeric; the x- and y-axis limits is set from 0 to "qqplot.axis" in the QQ plot. By default, it is 10.
 #' @keywords 
 #' @export
 #' @examples qqplot.plot(qqplotdata,seq_inx=1,qqplot.axis=10)

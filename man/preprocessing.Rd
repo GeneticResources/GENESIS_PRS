@@ -1,7 +1,7 @@
 \name{preprocessing}
 \alias{preprocessing}
 \title{
-Function to Calculate Number of SNPs with Effect Size Absolute Value Falling in an Interval
+Function to Pre-processing Summary-level GWAS Statistics
 }
 \description{
 This function allows to preprocess the summary-level GWAS statistics. 
@@ -10,18 +10,26 @@ This function allows to preprocess the summary-level GWAS statistics.
 preprocessing(summarydata, LDcutoff=0.1,LDwindow=1,filter=FALSE)
 }
 \arguments{
-  \item{\code{lower}}{the lower bound of the interval.}
-  \item{\code{upper}}{the upper bound of the interval.}
-  \item{\code{est}}{the parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).}
-  \item{\code{M}}{total number of SNPs in the reference panel. By default, it is the total number of common SNPs in Hapmap3 reference panel, which is equal to 1070777. }
+   \item{\code{summarydata}}{summay-level GWAS data, containing 3 columns: 
+  SNP (SNP rsID), 
+  Z (GWAS test z-statistic), 
+  N (GWAS study sample size which can be different for different SNPs)}
+  \item{\code{LDcutoff}}{a number from (0.05, 0.1, 0.2); indicating LD score is calculated based on the particular r^2 cutoff. By default, it is 0.1.}
+   \item{\code{LDwindow}}{a number from (0.5, 1, 2); indicating LD score is calculated based on the particular window size (MB). By default, it is 1 MB.}
+  \item{\code{filter}}{logical; if TRUE, the input summary data will be filtered.}
+}
+\details{
+If filter==TRUE, the input summary data will be filtered by 3 steps: (i) If sample size varies from SNP to SNP, remove SNPs with an effective sample size less than 0.67 times the 90th percentile of sample size. (ii) Remove SNPs within the major histocompatibility complex (MHR) region; filter SNPs to Hapmap3 SNPs. (iii) Remove SNPs with extremely large effect sizes (chi^2 > 80).
 }
 \value{
-The number of SNPs with effect size falling into some interval (lower, upper) according to the fitted mixture model.
+a dataframe containing the filtered summary GWAS data  after merged with the LD information, with 10 columns
+("SNP", "Z", "N", "betahat", "varbetahat", "Nstar", "TaggingSNPs", "LD.score.correct", "CHR", "BP").        
 }
 \author{
 Yan Zhang <yandorazhang@gmail.com>
 }
 \examples{
 data(heightGWAS)
-df = preprocessing(heightGWAS,filter=FALSE)
+df <- preprocessing(heightGWAS,filter=FALSE)
+head(df)
 }

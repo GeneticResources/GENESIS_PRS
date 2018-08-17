@@ -4,7 +4,8 @@
 Function to  Transfer Heritability in Log-odds-ratio Scale to Other Scale
 }
 \description{
-This function allows to transfer the heritability in log-odds-ratio (frailty) scale to other scale (observed and liability scale)
+This function allows to transfer the heritability in log-odds-ratio (frailty) scale to other scale (observed and liability scale). 
+}
 \usage{
 h2transfer(h2.log, se.h2.log, population.prevalence, sample.prevalence)
 }

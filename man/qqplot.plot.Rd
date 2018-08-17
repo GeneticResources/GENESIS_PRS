@@ -1,25 +1,43 @@
-\name{numInterval}
-\alias{numInterval}
+\name{qqplot.plot}
+\alias{qqplot.plot}
 \title{
-Function to Calculate Number of SNPs with Effect Size Absolute Value Falling in an Interval
+Function to Create QQ Plot
 }
 \description{
-This function calculates the number of SNPs with the absolute value of effect size falling into some interval according to the fitted mixture model.}
+This function allows to create QQ plot comparing observed distributions of association statistics against those expected under the fitted models. 
+}
 \usage{
-numInterval(lower,upper,est,M=1070777)
+qqplot.plot(qqplotdata,seq_inx=1,qqplot.axis=10)
 }
 \arguments{
-  \item{\code{lower}}{the lower bound of the interval.}
-  \item{\code{upper}}{the upper bound of the interval.}
-  \item{\code{est}}{the parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).}
-  \item{\code{M}}{total number of SNPs in the reference panel. By default, it is the total number of common SNPs in Hapmap3 reference panel, which is equal to 1070777. }
+\item{\code{qqplotdata}}{
+A list containing: 
+(i) QQdata, a dataframe needed to generate the QQ plot, i.e., a dataframe containing 4 columns, "log10(observed.pvalues)", "expected log10(fitted pvalues)", "lower bound of log10(fitted pvalues)","upper bound of log10(fitted pvalues)".
+(ii) observedlambda, lambda genomic control (GC) factor for observed summary GWAS statistics.
+(iii) meanEXPlambda,  expected lambda GC factor for simulated summary GWAS statistics under the fitted model.
+(iv) lowEXPlambda, "qqplotCI.coverage" CI lower bound of lambda GC factor for simulated summary GWAS statistics under the fitted model. 
+(v) highEXPlambda, "qqplotCI.coverage" CI upper bound of lambda GC factor for simulated summary GWAS statistics under the fitted model.
+}
+\item{\code{seq_inx}}{numeric; QQdata will be thinned every seq_inx. }
+\item{\code{qqplot.axis}}{numeric; the x- and y-axis limits is set from 0 to "qqplot.axis" in the QQ plot. By default, it is 10.}
+}
+\details{
+This function allows to create QQ plot. (corresponding with Fig. 1 in Zhang et. al 2018)
 }
 \value{
-The number of SNPs with effect size falling into some interval (lower, upper) according to the fitted mixture model.
+QQ plot. 
+}
+\references{
+Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits" Nature Genetics (2018).
 }
 \author{
 Yan Zhang <yandorazhang@gmail.com>
 }
+\seealso{
+\code{\link{qqplotdata.simu}}
+}
 \examples{
-numInterval(0.005,Inf,est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06))
+data(heightGWAS)
+qqplotdata <- qqplotdata.simu(heightGWAS, est=c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06))
+qqplot.plot(qqplotdata)
 }

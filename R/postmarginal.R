@@ -81,7 +81,7 @@ postmarginal <- function(summarydata, est, c0=10, LDcutoff=0.1, LDwindow=1, filt
         if (i==0 & j==0){
           next
         } else{
-          print(paste(i,j))
+          # print(paste(i,j))
           qtemp = rep(0, length(Nstar))
           delta = (i*est[3]+j*est[4])*ldscore/Nstar 
           ind = Nstar>=(i+j)

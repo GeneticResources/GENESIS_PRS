@@ -11,20 +11,13 @@
 #' @param type which threshold should be applied. Either "optimum" (default) or "GWAS" can be chosen.
 #' @param alp.GWAS the (scalar) genome-wide significance level, if type=="GWAS". The default value is 5*10^(-8).
 #' @param k.fold a vector of multiplicative constants, at which or higher risk then the average population risk, 
-#' proportions of population and cases are calculated. The default value is set at 3:4.
+#' proportions of population and cases are calculated. The default value is set at 3:5.
 #' @keywords 
 #' @export
 #' @examples polyriskpredict(N, Ps, Sig2s, M=200000, M1, type="optimum", alp.GWAS=5*10^(-8), k.fold=3:5)
 
 polyriskpredict <- function(N, Ps, Sig2s, M=200000, M1, type="optimum", alp.GWAS=5*10^(-8), k.fold=3:5){
  
-  #### Output Values
-  # alpha: at which the predictive performance measures are calculated
-  # AUC: area under the curve
-  # PPI: proportion of population identifiable to be at k-fold or higher risk than the average population risk 
-  # PCI: proportion of cases identifiable to be at k-fold or higher risk than the average population risk 
-  #################################################################################################################
-  
   ### functions used within polyriskpredict
   mu.func<-function(N, c.alp.half, Ps, Sig2s,M, M1){
     # this function calculates the expeced value of RN, defined in Chatterjee et al (2013, NG)
@@ -95,17 +88,3 @@ polyriskpredict <- function(N, Ps, Sig2s, M=200000, M1, type="optimum", alp.GWAS
   
   list(alpha=result.vec[1], AUC=AUC, PPI=PPI, PCI=PCI)
 }
-
-
-# 
-### Schizophrenia example at a sample size of 10^6
-m<-200000
-m1<-19294
-ns<-10^6
-ps<-c(0.5, 0.5)
-sig2s<-c(0.000108801, 0.000108801)
-
-## at an optimal threshold
-polyriskpredict(N=ns, Ps=ps, Sig2s=sig2s, M=m, M1=m1, type="optimum", k.fold=3:5)
-## at the GWAS significance
-polyriskpredict(N=ns, Ps=ps, Sig2s=sig2s, M=m, M1=m1, type="GWAS", alp.GWAS=5*10^(-8), k.fold=3:5)
