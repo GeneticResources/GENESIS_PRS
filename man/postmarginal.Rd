@@ -23,7 +23,7 @@ postmarginal(summarydata, est, c0=10, LDcutoff=0.1, LDwindow=1, filter=FALSE)
 This function computes the posterior probability for each GWAS maker to have  a zro marginal effect, as well as the best prediction of marginal effect size given the GWAS summary-level statistics and the fitted effect size distribution. See Supplementary Note Section 4  in  Zhang et. al 2018.
 }
 \value{
-A list of future postmarginals with components: 
+A list  with components: 
 \item{\code{prob.beta0}}{posterior probability for the marker to have a zero marginal effect.}
 \item{\code{posteriormean.marginal}}{posterior mean (best prediction) of marginal effect size.}
 }

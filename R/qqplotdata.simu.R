@@ -119,7 +119,7 @@ qqplotdata.simu <- function(summarydata, est, c0=10,
   h.lambda <- quantile(exp_lambda, 1-(1-qqplotCI.coverage)/2)
   
   QQdata = data.frame(cbind(log_obs_pvalues,mean_log_exp_pvalues,lower,upper))
-  # colnames(QQdata) = c("log10(observed.pvalues)", "expected log10(fitted pvalues)", "lower bound of log10(fitted pvalues)","upper bound of log10(fitted pvalues)" )
+  # colnames(QQdata) = c("log10(observed pvalues)", "expected log10(fitted pvalues)", "lower bound of log10(fitted pvalues)","upper bound of log10(fitted pvalues)" )
   
   qqplotdata <- list(QQdata=QQdata, observedlambda=obs_lambda,
                      meanEXPlambda=m.lambda, lowEXPlambda=l.lambda, highEXPlambda=h.lambda)

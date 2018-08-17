@@ -8,11 +8,11 @@ The dataset contains GWAS summary data of GIANT_HEIGHT_LangoAllen2010_publicrele
 }
 \usage{data("heightGWAS")}
 \format{
-   A matrix with 1037172 rows and 3 columns (MarkerName, z, N)
+   A matrix with 1037172 rows and 3 columns (snp, z, n)
     \describe{
-    \item{\code{MarkerName}}{SNP rsID}
+    \item{\code{snp}}{SNP rsID}
     \item{\code{z}}{GWAS z-statistic}
-    \item{\code{N}}{Sample size associated with the GWAS study of z-statistic}
+    \item{\code{n}}{Sample size associated with the GWAS study of z-statistic}
   }
 }
 \source{http://portals.broadinstitute.org/collaboration/giant/index.php/GIANT_consortium_data_files#Height_.28download_GZIP.29}

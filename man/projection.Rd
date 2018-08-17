@@ -7,7 +7,7 @@ Future Projection Function
 Function to make future projections about the number of expected discoveries and associated heritability explained in future studies based on analytic formulas according to the fitted model. 
 }
 \usage{
-projection(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=FALSE,nsim=10000,CI.coverage=0.95)
+projection(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=FALSE,nsim=10000,CI.coverage=0.95,seeds=123)
 }
 \arguments{
   \item{\code{est}}{parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).}
@@ -19,6 +19,7 @@ projection(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=F
 \item{\code{CI}}{logic; indicating whether to calculate confidence interval or not; by default, CI=FALSE.}
   \item{\code{nsim}}{the total number of bootstrap samplers in order to calculate CI; by default, it is 1000.}
   \item{\code{CI.coverage}}{coverage level of confidence interval; by default, it is 0.95, i.e., 95\% CI.}
+  \item{\code{seeds}}{numeric; random seeds used in simulation; by default, it is 123.}
 }
 \details{
 This function allows to make future projections about the number of expected discoveries and associated heritability explained in future studies based on analytic formulas according to the fitted model.  (corresponding with Fig. 3  in Zhang et. al 2018)

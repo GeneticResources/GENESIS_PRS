@@ -16,7 +16,7 @@ qqplotdata.simu(summarydata, est, c0=10, qqplotCI.coverage=0.8, qqplot.nsim=100,
   \item{\code{est}}{parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).}
   \item{\code{c0}}{an assumed maximum number of underlying susceptibility SNPs tagged by any individual GWAS marker. By default, c0 is set at 10.}
 \item{\code{qqplotCI.coverage}}{the coverage rate of confidence band in the QQ plot. By default, it is 0.8.}
-  \item{\code{qqplot.nsim}}{the total number of simulations to generate the expected p-values to get the QQ plot. By default, it is 100.}
+  \item{\code{qqplot.nsim}}{the total number of simulations to generate the expected p-values to get the confidence band in QQ plot. By default, it is 100.}
  \item{\code{LDcutoff}}{a number from (0.05, 0.1, 0.2); indicating LD score is calculated based on the particular r^2 cutoff. By default, it is 0.1.}
    \item{\code{LDwindow}}{a number from (0.5, 1, 2); indicating LD score is calculated based on the particular window size (MB). By default, it is 1 MB.}
   \item{\code{filter}}{logical; if TRUE, the input summary data will be filtered.}
@@ -24,11 +24,11 @@ qqplotdata.simu(summarydata, est, c0=10, qqplotCI.coverage=0.8, qqplot.nsim=100,
   \item{\code{seeds}}{numeric, random seeds used in simulation; by default, it is 123.}
 }
 \details{
-This function allows to generate expected p-values under the fitted model through simulations, hence then get the dataframe to generate qqplot. The details are as follows: (i) generate marginal effect size from mixture normal distribution (eq.(6) in Supplementary Note in Zhang et. al 2018)  with parameters  plugged-in by their estimated values from the fitted model; (ii) add error terms with N(0, R) distribution to get the estimated marginal effect sizes (betahat); (iii) transform the simulated  "betahat" to underlying p-values. (see Supplementary Note Section 5.1 in Zhang et. al 2018)
+This function allows to generate expected p-values under the fitted model through simulations, hence then get the dataframe to generate qqplot. The details are as follows: (i) generate marginal effect size from mixture normal distribution (eq.(6) in Supplementary Note in Zhang et. al 2018)  with parameters  plugged-in by their estimated values from the fitted model; (ii) add error terms following N(0, R) distribution to get the estimated marginal effect sizes (betahat); (iii) transform the simulated  "betahat" to underlying p-values. (see Supplementary Note Section 5.1 in Zhang et. al 2018)
 }
 \value{
 A list containing
-\item{\code{QQdata}}{a dataframe needed to generate the QQ plot, i.e., a dataframe containing 4 columns, "log10(observed.pvalues)", "expected log10(fitted pvalues)", "lower bound of log10(fitted pvalues)","upper bound of log10(fitted pvalues)". }
+\item{\code{QQdata}}{a dataframe needed to generate the QQ plot, i.e., a dataframe containing 4 columns, "log10(observed pvalues)", "expected log10(fitted pvalues)", "lower bound of log10(fitted pvalues)","upper bound of log10(fitted pvalues)". }
 \item{\code{observedlambda}}{lambda genomic control (GC) factor for observed summary GWAS statistics.}
 \item{\code{meanEXPlambda}}{expected lambda GC factor for simulated summary GWAS statistics under the fitted model.}
 \item{\code{lowEXPlambda}}{qqplotCI.coverage CI lower bound of lambda GC factor for simulated summary GWAS statistics under the fitted model.}

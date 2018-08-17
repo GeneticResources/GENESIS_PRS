@@ -21,7 +21,7 @@ genesis(summarydata, filter=FALSE,modelcomponents=2, cores=10, LDcutoff=0.1, LDw
    \item{\code{LDwindow}}{a number from (0.5, 1, 2); indicating LD score is calculated based on the particular window size (MB). By default, it is 1 MB.}
   \item{\code{M}}{total number of SNPs in the reference panel; by default, it is the total number of common SNPs in Hapmap3 reference panel, i.e., 1070777. }
   \item{\code{c0}}{an assumed maximum number of underlying susceptibility SNPs tagged by any individual GWAS marker. By default, c0 is set at 10.}
-  \item{\code{BIC.gamma}}{a tuning parameter in calculating BIC with a range of (0,1). By default, BIC.gamma is set at 0.5.}
+  \item{\code{BIC.gamma}}{numeric; tuning parameter when calculating BIC, in (0,1). By default, BIC.gamma is set at 0.5.}
   \item{\code{print}}{logical; if TRUE, the EM algorithm iteration details will be output.}
   \item{\code{printfreq}}{a number indicating every "printfreq" iterations of EM algorithms,  results will be output.}
   \item{\code{starting}}{the starting values for the model. For 2-component model, the starting value of (pic, sigmasq, a); for 3-component model, (pic, p1, sigmasq1, sigmasq2, a).}
@@ -54,7 +54,7 @@ This function also has an option to draw the QQ plot comparing observed distribu
 }
 \item{\code{qqplotdata}}{
 A list containing: 
-(i) QQdata, a dataframe needed to generate the QQ plot, i.e., a dataframe containing 4 columns, "log10(observed.pvalues)", "expected log10(fitted pvalues)", "lower bound of log10(fitted pvalues)","upper bound of log10(fitted pvalues)".
+(i) QQdata, a dataframe needed to generate the QQ plot, i.e., a dataframe containing 4 columns, "log10(observed pvalues)", "expected log10(fitted pvalues)", "lower bound of log10(fitted pvalues)","upper bound of log10(fitted pvalues)".
 (ii) observedlambda, lambda genomic control (GC) factor for observed summary GWAS statistics.
 (iii) meanEXPlambda,  expected lambda GC factor for simulated summary GWAS statistics under the fitted model.
 (iv) lowEXPlambda, "qqplotCI.coverage" CI lower bound of lambda GC factor for simulated summary GWAS statistics under the fitted model. 

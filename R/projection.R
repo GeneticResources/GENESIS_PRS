@@ -10,11 +10,12 @@
 #' @param CI whether to calculate CI or not; by default, CI=FALSE.
 #' @param nsim the total number of bootstrap samplers in order to calculate CI; by default, it is 1000.
 #' @param CI.coverage coverage level of confidence interval; by default, it is 0.95, i.e., 95% CI. 
+#' @param seeds numeric; random seeds used in simulation; by default, it is 123.
 #' @keywords 
 #' @export
-#' @examples projection(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=FALSE,nsim=1000,CI.coverage=0.95)
+#' @examples projection(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=FALSE,nsim=1000,CI.coverage=0.95,seeds=123)
 
-projection <- function(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=FALSE,nsim=1000,CI.coverage=0.95){
+projection <- function(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=FALSE,nsim=1000,CI.coverage=0.95,seeds=123){
   # within function
   pp <- function(est,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777){
     
@@ -56,6 +57,7 @@ projection <- function(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=
   logest = log(est)
   
   if(CI==TRUE){
+    set.seed((seeds))
     alpha = (1-CI.coverage)/2
     logv = diag(1/est)%*%v%*%diag(1/est)
     estmat = exp(mvrnorm(nsim,mu=logest,Sigma=logv))

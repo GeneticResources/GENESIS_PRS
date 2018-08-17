@@ -2,11 +2,12 @@ Examples
 ===
 
 ## Load summary GWAS data - Height (allen2010)
-The summary GWAS dataframe has 3 columns: (SNPname, z-statistic, sample size). 
+The summary GWAS dataframe has 3 columns: (SNPname, z-statistic, sample size).  
 
 ```{r height}
 library(GENESIS)
 data(heightGWAS)
+# heightGWAS has been pre-processed according to function preprocessing(). 
 ```
 
 
@@ -19,7 +20,7 @@ Note the startingpic value can be specifided at a list of values, and then the o
 fit2 <- genesis(heightGWAS, filter=F, modelcomponents=2, cores=2, LDcutoff=0.1, LDwindow=1, c0=10, startingpic=0.005)
 fit2$estimates
 
-est <- fit2$estimates$`parameter (pic, sigmasq, a) estimates` # the model parameter estimates
+est <- fit2$estimates$`Parameter (pic, sigmasq, a) estimates` # the model parameter estimates
 v <- fit2$estimates$`Covariance matrix of parameter estimates` # the covariance matrix of model parameter estimtaes
 
 # the est and v should have below values
@@ -46,7 +47,7 @@ numInterval(0.005,Inf,est)
 
 ### Predict genomic control factor in future GWAS with specified sample size n
 ```{r prediction}
-fgc(est,n=253288,nsim=10)
+futuregc(est,n=253288,nsim=1)
 ```
 
 
@@ -69,7 +70,7 @@ starting[5] <- est[3]
 fit3 <- genesis(heightGWAS, filter=F, modelcomponents=3, cores=24, LDcutoff=0.1, LDwindow=1, c0=10,starting=starting)
 fit3$estimates
 
-est <- fit3$estimates$`parameter (pic, p1, sigmasq1, sigmasq2, a) estimates` # the model parameter estimates
+est <- fit3$estimates$`Parameter (pic, p1, sigmasq1, sigmasq2, a) estimates` # the model parameter estimates
 v <- fit3$estimates$`Covariance matrix of parameter estimates` # the covariance matrix of model parameter estimtaes
 
 # est and v should have below values
@@ -80,8 +81,8 @@ est <-  c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06)
 ### Get the density plot for the susceptibility SNPs 
 ```{r density plot}
 x_seq = seq(-0.02,0.02,length.out = 1000); 
-y_seq = apply(matrix(x_seq,ncol=1),1,function(t) dcausal(t,est))
-plot(x_seq, y_seq,type="l",ylim=c(0,250),xlab="Joint effect size", ylab="Probability Density")
+y_seq = apply(matrix(x_seq,ncol=1),1,function(t) dmixssnp(t,est))
+plot(x_seq, y_seq,type="l",xlab="Joint effect size", ylab="Probability Density")
 ```
 
 ### Make future projections with specified sample size n
@@ -96,6 +97,6 @@ numInterval(0.005,Inf,est)
 
 ### Predict genomic control factor in future GWAS with specified sample size n
 ```{r prediction}
-fgc(est,n=253288,nsim=10)
+futuregc(est,n=253288,nsim=1)
 ```
 
