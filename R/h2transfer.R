@@ -7,7 +7,7 @@
 #' @param sample.prevalence sample prevalence. 
 #' @keywords 
 #' @export
-#' @examples h2transfer(.351, .075, 0.044, 17/(17+37))
+#' @examples h2transfer(h2.log, se.h2.log, population.prevalence, sample.prevalence)
 
 h2transfer <- function(h2.log, se.h2.log, population.prevalence, sample.prevalence){
   

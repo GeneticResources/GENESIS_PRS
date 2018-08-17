@@ -1,57 +1,36 @@
 \name{polyriskpredict}
 \alias{polyriskpredict}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+This function allows to get parameter estimates from fitting the mixture model.
 }
 \usage{
-polyriskpredict(x)
+postmarginal(est,c0=10,summarydata,filter=FALSE)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{\code{est}}{parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).}
+    \item{\code{c0}}{an assumed maximum number of underlying susceptibility SNPs tagged by any individual GWAS marker. By default, c0 is set at 10.}
+   \item{\code{summarydata}}{summay-level GWAS data, containing 3 columns: 
+  SNP (SNP rsID), 
+  Z (GWAS test z-statistic), 
+  N (GWAS study sample size which can be different for different SNPs)}
+  \item{\code{filter}}{logical; if TRUE, the input summary data will be filtered.}
 }
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+\details{}
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A list of future postmarginals with components
+\item{\code{p_beta0}}{posterior probability for the marker to have a zero marginal effect.}
+\item{\code{beta}}{posterior mean (best prediction) of marginal effect size.}
 }
 \references{
-%% ~put references to the literature/web site here ~
+Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits" Nature Genetics (2018).
 }
 \author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+Yan Zhang <yandorazhang@gmail.com>
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-  }
+data(heightGWAS)
+postmarginal(est=c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06),c0=10,df,filter=FALSE)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

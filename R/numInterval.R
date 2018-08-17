@@ -7,7 +7,7 @@
 #' @param M total number of SNPs in the reference panel; by default, it is the total number of common SNPs in Hapmap3 reference panel, which is equal to 1070777. 
 #' @keywords 
 #' @export
-#' @examples numInterval(0.005,Inf,est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06))
+#' @examples numInterval(lower,upper,est,M=1070777)
 
 numInterval <- function(lower,upper,est,M=1070777){
   

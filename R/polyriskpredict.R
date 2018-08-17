@@ -1,10 +1,7 @@
-#' Illustration of genesis()
+#' Illustration of polyriskpredict()
 #'
-#' This function allows to get parameter estimates from fitting the mixture model.
-#' @param summarydata summay-level GWAS data, containing 3 columns: 
-#' SNP (SNP rsID), 
-#' Z (GWAS test z-statistic), 
-#' N (GWAS study sample size which can be different for different SNPs)
+#' This function allows to make polygenic risk prediction at given sample size with SNPs included at optimum p-value threshold or genome-wide significance level (5e-8). 
+#' 
 #' @param N sample size, at which the predictive performance is calculated. It must be a scalar.
 #' @param Ps a vector of two mixture weights in the effect-size distribution for susceptibility SNPs. The sum should be equal to one.
 #' @param Sig2s a vector of two component-specific variances for susceptibility SNPs. In a case where the one-component 
@@ -17,9 +14,7 @@
 #' proportions of population and cases are calculated. The default value is set at 3:4.
 #' @keywords 
 #' @export
-#' @examples polyriskpredict(N=ns, Ps=ps, Sig2s=sig2s, M=m, M1=m1, type="optimum", k.fold=3:5)
-
-
+#' @examples polyriskpredict(N, Ps, Sig2s, M=200000, M1, type="optimum", alp.GWAS=5*10^(-8), k.fold=3:5)
 
 polyriskpredict <- function(N, Ps, Sig2s, M=200000, M1, type="optimum", alp.GWAS=5*10^(-8), k.fold=3:5){
  
@@ -103,14 +98,14 @@ polyriskpredict <- function(N, Ps, Sig2s, M=200000, M1, type="optimum", alp.GWAS
 
 
 # 
-# ### Schizophrenia example at a sample size of 10^6
-# m<-200000
-# m1<-19294
-# ns<-10^6
-# ps<-c(0.5, 0.5)
-# sig2s<-c(0.000108801, 0.000108801)
-# 
-# ## at an optimal threshold
-# polyriskpredict(N=ns, Ps=ps, Sig2s=sig2s, M=m, M1=m1, type="optimum", k.fold=3:5)
-# ## at the GWAS significance
-# polyriskpredict(N=ns, Ps=ps, Sig2s=sig2s, M=m, M1=m1, type="GWAS", alp.GWAS=5*10^(-8), k.fold=3:5)
+### Schizophrenia example at a sample size of 10^6
+m<-200000
+m1<-19294
+ns<-10^6
+ps<-c(0.5, 0.5)
+sig2s<-c(0.000108801, 0.000108801)
+
+## at an optimal threshold
+polyriskpredict(N=ns, Ps=ps, Sig2s=sig2s, M=m, M1=m1, type="optimum", k.fold=3:5)
+## at the GWAS significance
+polyriskpredict(N=ns, Ps=ps, Sig2s=sig2s, M=m, M1=m1, type="GWAS", alp.GWAS=5*10^(-8), k.fold=3:5)

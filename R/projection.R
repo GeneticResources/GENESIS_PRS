@@ -3,7 +3,7 @@
 #' This function allows to make future projections according to the fitted model.
 #' @param est parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).
 #' @param v covariance matrix of parameter estimates by fitting the 2- or 3-component model. 
-#' @param n specifided future GWAS sample size.
+#' @param n specifided future GWAS study sample size.
 #' @param gwas.significance genome-wide significance level, by default it is 5e-8. 
 #' @param tol tolerance accuracy vector for intgrate() function.
 #' @param M total number of SNPs in the reference panel; by default, it is the total number of common SNPs in Hapmap3 reference panel, which is equal to 1070777. 
@@ -12,8 +12,8 @@
 #' @param CI.coverage coverage level of confidence interval; by default, it is 0.95, i.e., 95% CI. 
 #' @keywords 
 #' @export
-#' @examples projection(est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06),v, n=253288, CI=T)
-#' 
+#' @examples projection(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=FALSE,nsim=1000,CI.coverage=0.95)
+
 projection <- function(est,v=NULL,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777,CI=FALSE,nsim=1000,CI.coverage=0.95){
   # within function
   pp <- function(est,n,gwas.significance=5e-8,tol=c(1e-12,1e-15),M=1070777){

@@ -1,6 +1,6 @@
 #' Illustration of futuregc()
 #'
-#' This function allows to predict future genomic control (GC) factor through simulations. 
+#' This function allows to predict future genomic control (GC) factor through simulations given the GWAS study sample size.
 #' @param est parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).
 #' @param n specifided future GWAS sample size.
 #' @param nsim total number of simulations; by default, it is 1. 
@@ -8,7 +8,7 @@
 #' @param seeds numeric random seeds used in simulation; by default, it is 123. 
 #' @keywords 
 #' @export
-#' @examples futuregc(est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06), n=253288,nsim=1)
+#' @examples futuregc(est,n,nsim=1,M=1070777,seeds=123)
 
 futuregc <- function(est,n,nsim=1,M=1070777,seeds=123){
   

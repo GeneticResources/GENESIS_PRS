@@ -1,11 +1,11 @@
 #' Illustration of dmixssnp()
 #'
-#' This function allows to get the (mixture) normal probability density function for the susceptibility SNP (sSNP).
+#' This function allows to get the (mixture) normal probability density function for the effect-size of susceptibility SNP (sSNP) based on the fitted 2- or 3-component model.
 #' @param x value of quantile. 
 #' @param est parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).
 #' @keywords 
 #' @export
-#' @examples dmixssnp(x,est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06))
+#' @examples dmixssnp(x,est)
 
 dmixssnp <- function(x,est){
   

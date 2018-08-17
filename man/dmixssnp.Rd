@@ -4,7 +4,7 @@
 Mixture Normal Probability Density for the Susceptibility SNP (sSNP)
 }
 \description{
-This function allows to get the (mixture) normal probability density function for the susceptibility SNP (sSNP). 
+This function allows to get the (mixture) normal probability density function for the effect-size of susceptibility SNP (sSNP) based on the fitted 2- or 3-component model.
 }
 \usage{
 dmixssnp(x,est)
@@ -14,7 +14,7 @@ dmixssnp(x,est)
   \item{\code{est}}{parameter estimates by fitting either 2-component model, i.e., (pic, sigmasq, a); or 3-component model, i.e., (pic, p1, sigmasq1, sigmasq2, a).}
 }
 \details{
-This function allows to get the (mixture) normal probability density function for the susceptibility SNP (sSNP). It is a single normal distribution for 2-component model; two-component mixture normal distribution for 3-component model. 
+This function allows to get the (mixture) normal probability density function for the effect-size of susceptibility SNP (sSNP) based on the fitted 2- or 3-component model.  It is a single normal distribution for 2-component model; two-component mixture normal distribution for 3-component model. Distributions with fatter tails imply that the underlying traits have relatively greater numbers of susceptibility SNPs with larger effects.
 }
 \value{
 The density.

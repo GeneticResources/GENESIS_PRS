@@ -6,7 +6,7 @@
 #' @param qqplot.axis Numeric; the x- and y-axis limits is from 0 to qqaxis for the QQ plot. By default, it is 1. 
 #' @keywords 
 #' @export
-#' @examples qqplot.plot(qqplotdata)
+#' @examples qqplot.plot(qqplotdata,seq_inx=1,qqplot.axis=10)
 
 qqplot.plot <- function(qqplotdata,seq_inx=1,qqplot.axis=10){
   

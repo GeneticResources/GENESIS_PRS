@@ -34,9 +34,9 @@
 #' @export
 #' 
 #' @examples
-#' genesis(summarydata,filter=F,modelcomponents=2, cores=2, LDcutoff=0.1,LDwindow=1,M=1070777,c0=10, BIC.gamma=0.5,print=TRUE,printfreq=10, starting=NA,startingpic=0.01, tolerance=NA,qqplot=TRUE, qqplotCI.coverage=0.8, qqplot.name=paste0(""), summaryGWASdata.save=FALSE, qqplotdata.save=T, herit.liability=FALSE,sample.prevalence=NA,population.prevalence=NA,stratification=TRUE,seeds=123)
-                     
-genesis <- function(summarydata, filter=FALSE, 
+#' genesis(summarydata, filter=FALSE,modelcomponents=2, cores=10, LDcutoff=0.1, LDwindow=1, M=1070777,c0=10, BIC.gamma=0.5,print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA,qqplot=TRUE, qqplotCI.coverage=0.8, qqplot.name="", qqplot.axis=10, qqplot.nsim=100,summaryGWASdata.save=FALSE, qqplotdata.save=FALSE,herit.liability=FALSE, sample.prevalence=NA, population.prevalence=NA,stratification=TRUE, seeds=123)
+
+genesis <- function(summarydata, filter=FALSE,
                     modelcomponents=2, cores=10, LDcutoff=0.1, LDwindow=1, M=1070777,
                     c0=10, BIC.gamma=0.5, 
                     print=TRUE, printfreq=10, starting=NA, startingpic=NA, tolerance=NA, 

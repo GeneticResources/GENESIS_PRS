@@ -1,12 +1,13 @@
-\name{numInterval}
-\alias{numInterval}
+\name{preprocessing}
+\alias{preprocessing}
 \title{
 Function to Calculate Number of SNPs with Effect Size Absolute Value Falling in an Interval
 }
 \description{
-This function calculates the number of SNPs with the absolute value of effect size falling into some interval according to the fitted mixture model.}
+This function allows to preprocess the summary-level GWAS statistics. 
+}
 \usage{
-numInterval(lower,upper,est,M=1070777)
+preprocessing(summarydata, LDcutoff=0.1,LDwindow=1,filter=FALSE)
 }
 \arguments{
   \item{\code{lower}}{the lower bound of the interval.}
@@ -21,5 +22,5 @@ The number of SNPs with effect size falling into some interval (lower, upper) ac
 Yan Zhang <yandorazhang@gmail.com>
 }
 \examples{
-numInterval(0.005,Inf,est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06))
+preprocessing(0.005,Inf,est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06))
 }
