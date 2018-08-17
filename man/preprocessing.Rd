@@ -1,7 +1,7 @@
 \name{preprocessing}
 \alias{preprocessing}
 \title{
-Function to Pre-processing Summary-level GWAS Statistics
+Function to Pre-process Summary-level GWAS Statistics
 }
 \description{
 This function allows to preprocess the summary-level GWAS statistics. 

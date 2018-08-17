@@ -72,8 +72,9 @@ fit3$estimates
 est <- fit3$estimates$`parameter (pic, p1, sigmasq1, sigmasq2, a) estimates` # the model parameter estimates
 v <- fit3$estimates$`Covariance matrix of parameter estimates` # the covariance matrix of model parameter estimtaes
 
-# est <- c(9.583307e-03,8.562964e-02,1.487684e-04,2.086576e-05,1.498790e-06)
-# v <- matrix(c(1.346867e-06, -1.036601e-05,1.303674e-09, -2.444779e-09, -8.840004e-11, -8.087098e-06, 2.721732e-04,-1.428814e-07,  1.519391e-09,  7.685736e-10, -1.188552e-09, -1.270322e-07,  1.637225e-10, 8.813366e-12,-2.151989e-14, -2.584200e-09,7.023163e-09 , 3.743461e-12,  7.008698e-12,  7.664961e-14, -8.582952e-11,8.923473e-10, -1.744992e-13,  6.291208e-14,  1.402886e-14),nrow=5,ncol=5)
+# est and v should have below values
+est <-  c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06)
+ v = matrix(c(1.327856e-06, -1.131049e-05, 6.912489e-10, -2.901301e-09, -9.388865e-11, -8.568269e-06, 3.380985e-04, -1.543479e-07, 1.771036e-09,8.989668e-10, -1.846216e-09, -1.353542e-07,  1.517545e-10,  1.166563e-11, 1.901686e-14, -3.068113e-09, 9.520417e-09,  5.633801e-12, 9.427492e-12, 1.220433e-13, -9.111521e-11, 1.063848e-09, -1.526281e-13, 1.042123e-13, 1.406410e-14), 5,5) 
 ```
 
 ### Get the density plot for the susceptibility SNPs 
@@ -85,7 +86,7 @@ plot(x_seq, y_seq,type="l",ylim=c(0,250),xlab="Joint effect size", ylab="Probabi
 
 ### Make future projections with specified sample size n
 ```{r future projections}
-projection(est,v,n=253288,nsim=1000)
+projection(est,v, n=253288, CI=TRUE);
 ```
 
 ### Calculate number of SNPs falling in an interval
