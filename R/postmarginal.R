@@ -99,6 +99,7 @@ postmarginal <- function(summarydata, est, c0=10, LDcutoff=0.1, LDwindow=1, filt
     beta_exp = beta_exp / qsum
   }
   posterior = list()
+  posterior$snp = SNP
   posterior$prob.beta0 = p_beta0
   posterior$posteriormean.marginal = beta_exp
   return(posterior)

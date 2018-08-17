@@ -24,6 +24,7 @@ This function computes the posterior probability for each GWAS maker to have  a 
 }
 \value{
 A list  with components: 
+\item{\code{snp}}{SNP list of the marginal effect size.}
 \item{\code{prob.beta0}}{posterior probability for the marker to have a zero marginal effect.}
 \item{\code{posteriormean.marginal}}{posterior mean (best prediction) of marginal effect size.}
 }
@@ -36,6 +37,7 @@ Yan Zhang <yandorazhang@gmail.com>
 \examples{
 data(heightGWAS)
 post <- postmarginal(heightGWAS,est=c(8.899809e-03, 9.476025e-02, 1.458650e-04, 2.227118e-05, 1.567643e-06), c0=10, LDcutoff=0.1, LDwindow=1, filter=FALSE)
+head(post$snp)
 summary(post$prob.beta0)
 summary(post$posteriormean.marginal)
 }
