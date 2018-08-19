@@ -402,7 +402,7 @@ genesis <- function(summarydata, filter=FALSE,
     if(qqplot==T){
       qqplotdata <- qqplotdata.simu(df, est, c0,qqplotCI.coverage, qqplot.nsim, LDcutoff, LDwindow, filter=F,cores,seeds)
       
-      pdf(file=paste0(qqplot.name,"qq2com.pdf"))
+      pdf(file=paste0(qqplot.name,"qq3com.pdf"))
       qqplot.plot(qqplotdata,seq_inx=1,qqplot.axis)
       dev.off()
       
