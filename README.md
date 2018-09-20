@@ -35,7 +35,7 @@ The input GWAS summary statistics are strongly recommended to do filtering befor
 Please cite the following paper when you use GENESIS:
 
 
-Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits." Nature genetics 50.9 (2018): 1318.
+[Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits." Nature genetics 50.9 (2018): 1318.] (https://www.nature.com/articles/s41588-018-0193-x)
 
 
 
