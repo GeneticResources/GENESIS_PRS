@@ -40,7 +40,6 @@ Please cite the following paper when you use GENESIS:
 
 
 ## Contact the Author
-Software Developer: Yan Zhang (yzhan284@jhu.edu or  yandorazhang@gmail.com)
+Software Developer/Maintainer: Yan Zhang (yzhan284@jhu.edu or  yandorazhang@gmail.com)
 
-Author: Yan Zhang, Guanghao Qi, Ju-Hyun Park, Nilanjan Chatterjee (nchatte2@jhu.edu)
 
