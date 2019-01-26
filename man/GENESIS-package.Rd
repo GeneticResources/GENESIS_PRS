@@ -1,24 +1,24 @@
-\name{GENESIS1.2-package}
-\alias{GENESIS1.2-package}
-\alias{GENESIS1.2}
+\name{GENESIS-package}
+\alias{GENESIS-package}
+\alias{GENESIS}
 \docType{package}
 \title{
-\packageTitle{GENESIS1.2}
+\packageTitle{GENESIS}
 }
 \description{
-\packageDescription{GENESIS1.2}
+\packageDescription{GENESIS}
 }
 \details{
 
 The DESCRIPTION file:
-\packageDESCRIPTION{GENESIS1.2}
-\packageIndices{GENESIS1.2}
+\packageDESCRIPTION{GENESIS}
+\packageIndices{GENESIS}
 GENetic Effect-Size distribution Inference from Summary-level data
 }
 \author{
-\packageAuthor{GENESIS1.2}
+\packageAuthor{GENESIS}
 
-Maintainer: \packageMaintainer{GENESIS1.2}
+Maintainer: \packageMaintainer{GENESIS}
 }
 \references{
 Zhang, Yan, et al. "Estimation of complex effect-size distributions using summary-level statistics from genome-wide association studies across 32 complex traits" Nature Genetics (2018).
