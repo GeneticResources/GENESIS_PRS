@@ -12,7 +12,7 @@ data(heightGWAS)
 
 
 ## Fit the 2-component model
-####1.  Fitting to the model
+#### 1.  Fitting to the model
 
 Note the startingpic value can be specifided at a list of values, and then the one with the largest log-likelihood is selected as the final model. 
 
