@@ -6,7 +6,7 @@
 #' @param Ps a vector of two mixture weights in the effect-size distribution for susceptibility SNPs. The sum should be equal to one.
 #' @param Sig2s a vector of two component-specific variances for susceptibility SNPs. In a case where the one-component 
 #' normal distribution is assumed for the effect-size distribution, then the two elements of the vector should be set to the same value.
-#' @param M the number of independent set of susceptibility SNPs with the default of 200000. 
+#' @param M the number of independent set of susceptibility SNPs with the default of 1070777. 
 #' @param M1 the estimated number of susceptibility SNPs. 
 #' @param type which threshold should be applied. Either "optimum" (default) or "GWAS" can be chosen.
 #' @param alp.GWAS the (scalar) genome-wide significance level, if type=="GWAS". The default value is 5*10^(-8).
@@ -14,9 +14,9 @@
 #' proportions of population and cases are calculated. The default value is set at 3:5.
 #' @keywords 
 #' @export
-#' @examples polyriskpredict(N, Ps, Sig2s, M=200000, M1, type="optimum", alp.GWAS=5*10^(-8), k.fold=3:5)
+#' @examples polyriskpredict(N, Ps, Sig2s, M=1070777, M1, type="optimum", alp.GWAS=5*10^(-8), k.fold=3:5)
 
-polyriskpredict <- function(N, Ps, Sig2s, M=200000, M1, type="optimum", alp.GWAS=5*10^(-8), k.fold=3:5){
+polyriskpredict <- function(N, Ps, Sig2s, M=1070777, M1, type="optimum", alp.GWAS=5*10^(-8), k.fold=3:5){
  
   ### functions used within polyriskpredict
   mu.func<-function(N, c.alp.half, Ps, Sig2s,M, M1){
@@ -64,7 +64,7 @@ polyriskpredict <- function(N, Ps, Sig2s, M=200000, M1, type="optimum", alp.GWAS
     c.seq<-exp(seq(log(10^(-8)), log(7), length=1000))	# generate candidate grid points for c.alp.half
     
     ## optimized threshold
-    tmp.mus<-mu.vec.func(N=N, c.alp.half=c.seq, Ps=Ps, Sig2s=sig2s, M=M, M1=M1)
+    tmp.mus<-mu.vec.func(N=N, c.alp.half=c.seq, Ps=Ps, Sig2s=Sig2s, M=M, M1=M1)
     loc.max<-which.max(tmp.mus)
     
     if (loc.max==1){
