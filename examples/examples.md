@@ -35,7 +35,7 @@ y_seq <- apply(matrix(x_seq,ncol=1),1,function(t) dmixssnp(t,est))
 plot(x_seq, y_seq,type="l",xlab="Joint effect size", ylab="Probability Density")
 ```
 
-#### 3. Make future projections with specified sample size n
+#### 3. Make future projections with specified sample size
 ```{r future projections}
 projection(est,v,n=253288, CI=TRUE)
 ```
@@ -45,20 +45,20 @@ projection(est,v,n=253288, CI=TRUE)
 numInterval(0.005,Inf,est)
 ```
 
-#### 5.  Predict genomic control factor in future GWAS with specified sample size n
+#### 5.  Predict genomic control factor in future GWAS with specified sample size
 ```{r prediction}
 futuregc(est,n=253288,nsim=1)
 ```
 
 
-#### 6.  Calculate AUC of polygenic risk prediction model at given sample size n 
+#### 6.  Calculate AUC of polygenic risk prediction model at given sample size
 ```{r function}
 # PRS is calculated with SNPs included at optimum p-value threshold
 
 polyriskpredict(N=253288, Ps=c(0.5,0.5), Sig2s=c(est[3],est[3]), M=1070777, M1=1070777*est[1], type="optimum", k.fold=3:5)
 
 # PRS is calculated with SNPs included at genome-wide significance level
-polyriskpredict(N=253288, Ps=c(0.5,0.5), Sig2s=c(est[3],est[3]), M=1070777, M1=1070777*est[1], type="GWAS", k.fold=3:5)
+polyriskpredict(N=253288, Ps=c(0.5,0.5), Sig2s=c(est[3],est[3]), M=1070777, M1=1070777*est[1], type="GWAS",alp.GWAS=5e-8, k.fold=3:5)
 ```
 
 
@@ -95,7 +95,7 @@ y_seq = apply(matrix(x_seq,ncol=1),1,function(t) dmixssnp(t,est))
 plot(x_seq, y_seq,type="l",xlab="Joint effect size", ylab="Probability Density")
 ```
 
-#### 3.  Make future projections with specified sample size n
+#### 3.  Make future projections with specified sample size
 ```{r future projections}
 projection(est,v, n=253288, CI=TRUE);
 ```
@@ -105,13 +105,13 @@ projection(est,v, n=253288, CI=TRUE);
 numInterval(0.005,Inf,est)
 ```
 
-#### 5. Predict genomic control factor in future GWAS with specified sample size n
+#### 5. Predict genomic control factor in future GWAS with specified sample size
 ```{r prediction}
 futuregc(est,n=253288,nsim=1)
 ```
 
 
-#### 6.  Calculate AUC of polygenic risk prediction model at given sample size n 
+#### 6.  Calculate AUC of polygenic risk prediction model at given sample size 
 ```{r function}
 # PRS is calculated with SNPs included at optimum p-value threshold
 
@@ -120,5 +120,5 @@ polyriskpredict(N=253288, Ps=c(est[2],1-est[2]), Sig2s=c(est[3],est[4]), M=10707
 
 # PRS is calculated with SNPs included at genome-wide significance level
 
-polyriskpredict(N=253288, Ps=c(est[2],1-est[2]), Sig2s=c(est[3],est[4]), M=1070777, M1=1070777*est[1], type="GWAS", k.fold=3:5)
+polyriskpredict(N=253288, Ps=c(est[2],1-est[2]), Sig2s=c(est[3],est[4]), M=1070777, M1=1070777*est[1], type="GWAS",alp.GWAS=5e-8, k.fold=3:5)
 ```
