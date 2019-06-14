@@ -1,3 +1,3 @@
-useDynLib(GENESIS)
+useDynLib(GENESIS_PRS)
 importFrom(Rcpp, evalCpp)
 exportPattern("^[[:alpha:]]+")
