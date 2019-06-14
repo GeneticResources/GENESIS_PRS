@@ -1,4 +1,4 @@
-Package: GENESIS
+Package: GENESIS_PRS
 Type: Package
 Title: GENetic Effect-Size distribution Inference from Summary-level data
 Version: 1.0
